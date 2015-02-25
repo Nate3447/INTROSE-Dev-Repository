@@ -12,6 +12,9 @@ public class Equipment {
 	private String borrowerName;
 	private Calendar calendar = Calendar.getInstance();
 
+	
+	// get/set methods
+	
 	public void setName(String name) {
 		this.name = name;
 	}

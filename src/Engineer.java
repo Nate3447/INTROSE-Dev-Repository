@@ -2,25 +2,19 @@
 import java.util.ArrayList;
 
 public class Engineer {
-	private String firstName;
-	private String lastName;
+	private String name;
 	private ArrayList<String> specialties;
 	
-	public String getFirstName() {
-		return firstName;
+	
+	// get/set methods
+	
+	public String getName() {
+		return name;
 	}
 	
-	public String getLastName() {
-		return lastName;
-	}
 	
-	
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setFirstName(String name) {
+		this.name = name;
 	}
 	
 	public void addSpecialty(String specialty) {
