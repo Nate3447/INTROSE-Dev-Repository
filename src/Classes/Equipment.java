@@ -1,3 +1,4 @@
+package Classes;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,7 +12,6 @@ public class Equipment {
 	private Date calibrationDate;
 	private String borrowerName;
 	private Calendar calendar = Calendar.getInstance();
-
 	
 	// get/set methods
 	
