@@ -36,8 +36,8 @@ public class Calendar {
 		
 		monthLabel = new JLabel();
 		yearLabel = new JLabel();
-		changeMonthLabel = new JLabel();
-		changeYearLabel = new JLabel();
+		changeMonthLabel = new JLabel("Change month: ");
+		changeYearLabel = new JLabel("Change year: ");
 		monthCombo = new JComboBox();
 		yearCombo = new JComboBox();
 		prevButton = new JButton("<<");
@@ -53,6 +53,7 @@ public class Calendar {
 			public void mouseClicked(MouseEvent e) {
 				int column = calendarTable.getSelectedColumn();
 				int row = calendarTable.getSelectedRow();
+				modelCalendarTable.getValueAt(row, column);
 				if(hasJob) {
 					// open window
 					openDayWindow();
@@ -60,7 +61,6 @@ public class Calendar {
 			}
 		});
 		
-
 		calendarTableScroll = new JScrollPane(calendarTable);
 		calendarPanel = new JPanel(null);
 
@@ -68,8 +68,6 @@ public class Calendar {
 		nextButton.addActionListener(new nextButtonAction());
 		yearCombo.addActionListener(new yearComboAction());
 		monthCombo.addActionListener(new monthComboAction());
-		
-		// pane.add(calendarPanel);
 		
 		calendarPanel.add(monthLabel);
 		calendarPanel.add(yearLabel);
@@ -79,16 +77,18 @@ public class Calendar {
 		calendarPanel.add(monthCombo);
 		calendarPanel.add(prevButton);
 		calendarPanel.add(nextButton);
+		calendarPanel.add(calendarTableScroll);
 		
 		calendarPanel.setBounds(0, 0, 600, 600);
-		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 50, 200, 50);
-		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 50, 200, 50);
-		changeMonthLabel.setBounds(20, 150, 150, 50);
-		changeYearLabel.setBounds(20, 50, 150, 50);
-		yearCombo.setBounds(720, 610, 160, 40);
-		monthCombo.setBounds(720, 670, 160, 40);
-		prevButton.setBounds(270, 50, 100, 50);
-		nextButton.setBounds(770, 50, 100, 50);
+		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 25, 200, 50);
+		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 25, 200, 50);
+		changeMonthLabel.setBounds(600, 660, 150, 50);
+		changeYearLabel.setBounds(600, 600, 150, 50);
+		yearCombo.setBounds(700, 610, 160, 40);
+		monthCombo.setBounds(700, 670, 160, 40);
+		prevButton.setBounds(270, 20, 100, 50);
+		nextButton.setBounds(770, 20, 100, 50);
+		calendarTableScroll.setBounds(270, 100, 600, 490);;
 		
 		GregorianCalendar cal = new GregorianCalendar();
 		dayBound = cal.get(GregorianCalendar.DAY_OF_MONTH);
@@ -103,8 +103,6 @@ public class Calendar {
 		}
 		
 		calendarTable.getParent().setBackground(calendarTable.getBackground()); //Set background
-
-
 		calendarTable.getTableHeader().setResizingAllowed(false);
 		calendarTable.getTableHeader().setReorderingAllowed(false);
 		
@@ -126,9 +124,7 @@ public class Calendar {
 		for(int i = 0; i < 12; i++) {
 			monthCombo.addItem(months[i]);
 		}
-		
-		
-	
+		monthCombo.setSelectedIndex(monthBound);
 		
 		refreshCalendar(monthBound, yearBound);
 		
@@ -148,8 +144,8 @@ public class Calendar {
 	            
 		monthLabel.setText(months[month]);
 		yearLabel.setText(""+year);
-		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 50, 200, 50);
-		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 50, 200, 50);
+		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 25, 200, 50);
+		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 25, 200, 50);
 	            
 		yearCombo.setSelectedItem(""+year);
 		monthCombo.setSelectedItem(""+month);
