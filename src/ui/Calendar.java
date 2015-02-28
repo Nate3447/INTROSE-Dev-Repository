@@ -62,7 +62,7 @@ public class Calendar {
 		
 
 		calendarTableScroll = new JScrollPane(calendarTable);
-		calendarPanel = new JPanel();
+		calendarPanel = new JPanel(null);
 
 		prevButton.addActionListener(new prevButtonAction());
 		nextButton.addActionListener(new nextButtonAction());
@@ -80,15 +80,15 @@ public class Calendar {
 		calendarPanel.add(prevButton);
 		calendarPanel.add(nextButton);
 		
-		calendarPanel.setBounds(0, 0, 500, 600);
-		monthLabel.setBounds(250-monthLabel.getPreferredSize().width/2, 50, 200, 50);
-		yearLabel.setBounds(20, 610, 160, 40);
-		changeMonthLabel.setBounds(x, y, width, height);
-		changeYearLabel.setBounds(x, y, width, height);
-		yearCombo.setBounds(460, 610, 160, 40);
-		monthCombo.setBounds(0, 0, 0, 0);
-		prevButton.setBounds(20, 50, 100, 50);
-		nextButton.setBounds(520, 50, 100, 50);
+		calendarPanel.setBounds(0, 0, 600, 600);
+		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 50, 200, 50);
+		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 50, 200, 50);
+		changeMonthLabel.setBounds(20, 150, 150, 50);
+		changeYearLabel.setBounds(20, 50, 150, 50);
+		yearCombo.setBounds(720, 610, 160, 40);
+		monthCombo.setBounds(720, 670, 160, 40);
+		prevButton.setBounds(270, 50, 100, 50);
+		nextButton.setBounds(770, 50, 100, 50);
 		
 		GregorianCalendar cal = new GregorianCalendar();
 		dayBound = cal.get(GregorianCalendar.DAY_OF_MONTH);
@@ -121,11 +121,14 @@ public class Calendar {
 			yearCombo.addItem(String.valueOf(i));
         }
 		
-		for (int i = 0; i < 12; i++) {
-			
-			// convert to month
-			
+		String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		
+		for(int i = 0; i < 12; i++) {
+			monthCombo.addItem(months[i]);
 		}
+		
+		
+	
 		
 		refreshCalendar(monthBound, yearBound);
 		
@@ -144,7 +147,9 @@ public class Calendar {
 	    	nextButton.setEnabled(false);
 	            
 		monthLabel.setText(months[month]);
-		monthLabel.setBounds(320-monthLabel.getPreferredSize().width/2, 50, 360, 50);
+		yearLabel.setText(""+year);
+		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 50, 200, 50);
+		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 50, 200, 50);
 	            
 		yearCombo.setSelectedItem(""+year);
 		monthCombo.setSelectedItem(""+month);
@@ -211,7 +216,20 @@ public class Calendar {
 		public void actionPerformed (ActionEvent e) {
 			if (monthCombo.getSelectedItem() != null) {
 				String b = monthCombo.getSelectedItem().toString();
-				currentMonth = Integer.parseInt(b);
+				switch(b) {
+					case "January": currentMonth = 0; break;
+					case "February": currentMonth = 1; break;
+					case "March": currentMonth = 2; break;
+					case "April": currentMonth = 3; break;
+					case "May": currentMonth = 4; break;
+					case "June": currentMonth = 5; break;
+					case "July": currentMonth = 6; break;
+					case "August": currentMonth = 7; break;
+					case "September": currentMonth = 8; break;
+					case "October": currentMonth = 9; break;
+					case "November": currentMonth = 10; break;
+					case "Devember": currentMonth = 11; break;
+				}
 				refreshCalendar(currentMonth, currentYear);
 			}
 		}
