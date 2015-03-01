@@ -15,11 +15,11 @@ public class Calendar {
 	private boolean hasJob = true;
 	
 	/* GUI Components */
+	public JPanel calendarPanel;
 	public JLabel monthLabel, yearLabel, changeMonthLabel, changeYearLabel;
 	public JButton prevButton, nextButton;
 	public JComboBox monthCombo, yearCombo;
 	public JScrollPane calendarTableScroll;
-	public JPanel calendarPanel;
 	// public Container pane;
 	
 	public JTable calendarTable;
@@ -30,9 +30,6 @@ public class Calendar {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
 		catch (Exception e) {}
-		
-		
-		// pane.setLayout(null);
 		
 		monthLabel = new JLabel();
 		yearLabel = new JLabel();
@@ -79,16 +76,16 @@ public class Calendar {
 		calendarPanel.add(nextButton);
 		calendarPanel.add(calendarTableScroll);
 		
-		calendarPanel.setBounds(0, 0, 600, 600);
-		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 25, 200, 50);
+		calendarPanel.setBounds(300, 0, 600, 800);
+		monthLabel.setBounds(250-monthLabel.getPreferredSize().width/2, 25, 200, 50);
 		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 25, 200, 50);
-		changeMonthLabel.setBounds(600, 660, 150, 50);
-		changeYearLabel.setBounds(600, 600, 150, 50);
-		yearCombo.setBounds(700, 610, 160, 40);
-		monthCombo.setBounds(700, 670, 160, 40);
-		prevButton.setBounds(270, 20, 100, 50);
-		nextButton.setBounds(770, 20, 100, 50);
-		calendarTableScroll.setBounds(270, 100, 600, 490);;
+		changeMonthLabel.setBounds(300, 660, 150, 50);
+		changeYearLabel.setBounds(300, 600, 150, 50);
+		yearCombo.setBounds(400, 610, 160, 40);
+		monthCombo.setBounds(400, 670, 160, 40);
+		prevButton.setBounds(0, 20, 100, 50);
+		nextButton.setBounds(500, 20, 100, 50);
+		calendarTableScroll.setBounds(0, 100, 600, 490);;
 		
 		GregorianCalendar cal = new GregorianCalendar();
 		dayBound = cal.get(GregorianCalendar.DAY_OF_MONTH);
@@ -144,7 +141,7 @@ public class Calendar {
 	            
 		monthLabel.setText(months[month]);
 		yearLabel.setText(""+year);
-		monthLabel.setBounds(550-monthLabel.getPreferredSize().width/2, 25, 200, 50);
+		monthLabel.setBounds(250-monthLabel.getPreferredSize().width/2, 25, 200, 50);
 		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 25, 200, 50);
 	            
 		yearCombo.setSelectedItem(""+year);
