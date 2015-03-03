@@ -14,15 +14,12 @@ import javax.swing.table.DefaultTableModel;
 public class UserInterface {
 
 	public JFrame interfaceFrame;
-	public JPanel calendarPanel;
-	public JPanel availabilityListPanel;
-	public JPanel engineerListPanel;
-	public JPanel jobOrderListPanel;
-	public JPanel equipmentListPanel;
-	public JPanel jobInfoPanel;
 	public Container pane;
 	
 	// calendarPanel Components
+
+	public JPanel calendarPanel;
+	
 	boolean hasJob = false;
 	private int yearBound, monthBound, dayBound, currentYear, currentMonth;
 	
@@ -35,13 +32,37 @@ public class UserInterface {
 	
 	// availabilityListPanel Components
 	
+	public JPanel availabilityListPanel;
+	
+	public JPanel menuBar;
+	public JLabel menuLabel;
+	public JComboBox menuDropDown;
+	public JScrollPane listsScrollPane;
+	public JButton unscheduledJobsButton, availableEngineersButton, availableEquipmentButton;
+	public JList unscheduledJobList, availableEngineerList, availableEquipmentList;
+	
 	// engineerListPanel Components
 	
+	public JPanel viewEngineersPanel;
+	
+	public JScrollPane engineerListPanel;
+	
 	// jobOrderListPanel Components
+
+	public JPanel viewJobOrdersPanel;
+	
+	public JPanel jobOrderListPanel;
 	
 	// equipmentListPanel Components
 	
+	public JPanel viewEquipmentPanel;
+	
+	public JPanel equipmentListPanel;
+	
 	// jobInfoPanel Components
+
+	public JPanel jobInfoPanel;
+	
 	
 	public UserInterface() {
 		try {
@@ -57,17 +78,58 @@ public class UserInterface {
 
 
 		setCalendarPanel();
+		setAvailabilityListPanel();
 		// setEngineerPanel(); 
-		// setAvailabilityListPanel();
 		// setEngineerPanel();
 		// setJobInfoPanel();
 		
 		
 		
 		pane.add(calendarPanel);
+		pane.add(availabilityListPanel);
 		
 		interfaceFrame.setResizable(false);
 		interfaceFrame.setVisible(true);
+		
+	}
+
+	public void setAvailabilityListPanel() {
+		menuBar = new JPanel(new FlowLayout());
+		menuBar.setBounds(0, 0, 360, 40);
+		menuLabel = new JLabel("Menu: ");
+		menuDropDown = new JComboBox();
+		listsScrollPane = new JScrollPane();
+		listsScrollPane.setLayout(new BoxLayout(listsScrollPane, BoxLayout.Y_AXIS));
+		listsScrollPane.setBounds(0, 43, 360, 700);
+		unscheduledJobsButton = new JButton("Unscheduled Jobs");
+		availableEngineersButton = new JButton("Available Engineers");
+		availableEquipmentButton = new JButton("Available Equipment");
+		unscheduledJobList = new JList();
+		availableEngineerList = new JList();
+		availableEquipmentList = new JList();
+
+		availabilityListPanel = new JPanel(null);
+		availabilityListPanel.setSize(360, 750);
+		availabilityListPanel.setLocation(620, 0);
+		availabilityListPanel.setLayout(null);
+		
+		availabilityListPanel.add(menuBar);
+		availabilityListPanel.add(listsScrollPane);
+		menuBar.add(menuLabel);
+		menuBar.add(menuDropDown);
+		listsScrollPane.add(unscheduledJobsButton);
+		listsScrollPane.add(unscheduledJobList);
+		listsScrollPane.add(availableEngineersButton);
+		listsScrollPane.add(availableEngineerList);
+		listsScrollPane.add(availableEquipmentButton);
+		listsScrollPane.add(availableEquipmentList);
+		
+		unscheduledJobsButton.setSize(100, 50);
+		availableEngineersButton.setSize(100, 50);
+		availableEquipmentButton.setSize(100, 50);
+	}
+
+	public void refreshLists() {
 		
 	}
 	
@@ -117,7 +179,7 @@ public class UserInterface {
 		calendarPanel.add(nextButton);
 		calendarPanel.add(calendarTableScroll);
 		
-		calendarPanel.setBounds(20, 0, 600, 800);
+		calendarPanel.setBounds(20, 0, 600, 750);
 		monthLabel.setBounds(250-monthLabel.getPreferredSize().width/2, 25, 200, 50);
 		yearLabel.setBounds(monthLabel.getWidth()+monthLabel.getX()-120, 25, 200, 50);
 		changeMonthLabel.setBounds(300, 660, 150, 50);
@@ -167,6 +229,7 @@ public class UserInterface {
 		refreshCalendar(monthBound, yearBound);
 		
 	}
+	
 	
 	public void refreshCalendar(int month, int year) {
 		String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -262,5 +325,4 @@ public class UserInterface {
 			}
 		}
 	}
-	
 }
