@@ -82,7 +82,7 @@ public class UserInterface {
 		
 		listCardsPanel = new JPanel(new CardLayout());
 		listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
-		// listCardsPanel.add(viewEngineersPanel, ENGINEERS);
+		listCardsPanel.add(viewEngineersPanel, ENGINEERS);
 		// listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		// listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
 		
@@ -111,10 +111,6 @@ public class UserInterface {
 
 		menuBar.add(menuLabel);
 		menuBar.add(menuDropDown);
-	}
-	
-	public void setViewEngineersPanel() {
-		
 	}
 	
 	public Engineer[] getEngineers() {
@@ -221,6 +217,27 @@ public class UserInterface {
 		listPanel.setBounds(5, 5, 350, unscheduledJobsButton.getHeight() + unscheduledJobList.getHeight() 
 				+ availableEngineersButton.getHeight() + availableEngineerList.getHeight() 
 				+ availableEquipmentButton.getHeight() + availableEquipmentList.getHeight());
+	}
+	
+	public void setViewEngineersPanel() {
+		int y = 5;
+		JPanel listPanel = new JPanel();
+		Engineer[] engineers = getEngineers();
+		EngineerPanel engineerPanel = new EngineerPanel();
+		int i;
+		
+		for(i=0; i<engineers.length; i++) {
+			engineerPanel = new EngineerPanel(engineers[i]);
+			listPanel.add(engineerPanel);
+			engineerPanel.setLocation(5, y);
+			y += engineerPanel.getHeight();
+		}
+		if(i > 0) {
+			listPanel.setSize(360, engineerPanel.getHeight() * engineers.length + 10);
+		}
+		
+		viewEngineersPanel = new JScrollPane(listPanel);
+		viewEngineersPanel.setBounds(640, 40, 360, 750);
 	}
 	
 	public void setCalendarPanel() {

@@ -1,10 +1,8 @@
 package classes;
 
-import java.util.ArrayList;
-
 public class Engineer {
 	private String name;
-	private ArrayList<String> specialties;
+	private String specialties;
 	private boolean available;
 	
 	public Engineer(String name) {
@@ -21,12 +19,12 @@ public class Engineer {
 		return name;
 	}
 	
-	public void addSpecialty(String specialty) {
-		specialties.add(specialty);
+	public void setSpecialties(String specialties) {
+		this.specialties = specialties;
 	}
 	
-	public void removeSpecialty(String specialty) {
-		specialties.remove(specialties.indexOf(specialty));
+	public String getSpecialty() {
+		return specialties;
 	}
 	
 	public void setAvailability(boolean available) {

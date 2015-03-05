@@ -8,12 +8,25 @@ public class EngineerPanel extends JPanel {
 	public JLabel nameLabel;
 	public JLabel specialties;	
 	
-	public EngineerPanel(Engineer engineer) {
-		nameLabel.setText("Name: " + engineer.getName());
-		specialties.setText("Specialties: ");
+	public EngineerPanel() {
+		nameLabel = new JLabel();
+		specialties = new JLabel();
 		
 		this.add(nameLabel);
 		this.add(specialties);
+		
+		this.setSize(0, 0);
+		
+	}
+	
+	public EngineerPanel(Engineer engineer) {
+		nameLabel = new JLabel("Name: " + engineer.getName());
+		specialties = new JLabel("Specialties: " + specialties);
+		
+		this.add(nameLabel);
+		this.add(specialties);
+		
+		this.setSize(340, 100);
 		
 	}
 }
