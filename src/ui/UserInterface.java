@@ -10,11 +10,28 @@ import java.util.GregorianCalendar;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import classes.Engineer;
+
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
 
 public class UserInterface {
+	
+	public final static String AVAILABILITY_LIST = "View Availability Lists";
+	public final static String ENGINEERS = "View Engineers";
+	public final static String JOB_ORDERS = "View Job Orders";
+	public final static String EQUIPMENT = "View Equipment";
 
 	public JFrame interfaceFrame;
 	public Container pane;
+	public JPanel menuBar;
+	public JPanel listCardsPanel;
+	public JScrollPane availabilityListPanel;	
+	public JScrollPane viewEngineersPanel;
+	public JScrollPane viewJobOrdersPanel;
+	public JScrollPane viewEquipmentPanel;
+	public JPanel jobInfoPanel;
 	
 	// calendarPanel Components
 
@@ -30,39 +47,6 @@ public class UserInterface {
 	public JTable calendarTable;
 	public DefaultTableModel modelCalendarTable;
 	
-	// availabilityListPanel Components
-	
-	public JPanel availabilityListPanel;
-	
-	public JPanel menuBar;
-	public JLabel menuLabel;
-	public JComboBox menuDropDown;
-	public JScrollPane listsScrollPane;
-	public JButton unscheduledJobsButton, availableEngineersButton, availableEquipmentButton;
-	public JList unscheduledJobList, availableEngineerList, availableEquipmentList;
-	
-	// engineerListPanel Components
-	
-	public JPanel viewEngineersPanel;
-	
-	public JScrollPane engineerListPanel;
-	
-	// jobOrderListPanel Components
-
-	public JPanel viewJobOrdersPanel;
-	
-	public JPanel jobOrderListPanel;
-	
-	// equipmentListPanel Components
-	
-	public JPanel viewEquipmentPanel;
-	
-	public JPanel equipmentListPanel;
-	
-	// jobInfoPanel Components
-
-	public JPanel jobInfoPanel;
-	
 	
 	public UserInterface() {
 		try {
@@ -71,66 +55,172 @@ public class UserInterface {
 		catch (Exception e) {}
 		
 		interfaceFrame = new JFrame ("BEMC Smart Scheduler");
-		interfaceFrame.setSize(1000, 800);
+		interfaceFrame.setSize(1020, 800);
 		pane = interfaceFrame.getContentPane();
 		pane.setLayout(null);
 		interfaceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 		setCalendarPanel();
+		setMenuBar();
 		setAvailabilityListPanel();
-		// setEngineerPanel(); 
-		// setEngineerPanel();
-		// setJobInfoPanel();
-		
-		
+		setViewEngineersPanel();
+		setViewEquipmentPanel();
+		setViewJobOrdersPanel();
+		setListCardsPanel();
 		
 		pane.add(calendarPanel);
-		pane.add(availabilityListPanel);
+		pane.add(menuBar);
+		pane.add(listCardsPanel);
 		
 		interfaceFrame.setResizable(false);
 		interfaceFrame.setVisible(true);
 		
 	}
-
-	public void setAvailabilityListPanel() {
-		menuBar = new JPanel(new FlowLayout());
-		menuBar.setBounds(0, 0, 360, 40);
+	
+	public void setListCardsPanel() {
+		
+		listCardsPanel = new JPanel(new CardLayout());
+		listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
+		// listCardsPanel.add(viewEngineersPanel, ENGINEERS);
+		// listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
+		// listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
+		
+		listCardsPanel.setBounds(640, 40, 360, 710);
+		
+	}
+	
+	public void setMenuBar() {
+		JLabel menuLabel;
+		JComboBox menuDropDown;
+		
+		menuBar = new JPanel(null);
+		menuBar.setBounds(640, 0, 360, 40);
 		menuLabel = new JLabel("Menu: ");
-		menuDropDown = new JComboBox();
-		listsScrollPane = new JScrollPane();
-		listsScrollPane.setLayout(new BoxLayout(listsScrollPane, BoxLayout.Y_AXIS));
-		listsScrollPane.setBounds(0, 43, 360, 700);
-		unscheduledJobsButton = new JButton("Unscheduled Jobs");
-		availableEngineersButton = new JButton("Available Engineers");
-		availableEquipmentButton = new JButton("Available Equipment");
+		menuLabel.setBounds(10, 10, 40, 20);
+		menuLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		String[] comboBoxItems = { AVAILABILITY_LIST, ENGINEERS, EQUIPMENT, JOB_ORDERS };
+		menuDropDown = new JComboBox(comboBoxItems);
+		menuDropDown.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				CardLayout c = (CardLayout)(listCardsPanel.getLayout());
+				c.show(listCardsPanel, (String)e.getItem());
+			}
+		});
+		menuDropDown.setBounds(50, 10, 150, 20);
+
+		menuBar.add(menuLabel);
+		menuBar.add(menuDropDown);
+	}
+	
+	public void setViewEngineersPanel() {
+		
+	}
+	
+	public Engineer[] getEngineers() {
+		Engineer[] engineers;
+		
+		
+		
+		return engineers;
+	}
+	
+	public Engineer[] getAvailableEngineers() {
+		Engineer[] engineers;
+		
+		return engineers;
+	}
+	
+	public void setViewEquipmentPanel() {
+		
+	}
+	
+	public void setViewJobOrdersPanel() {
+		
+	}
+	
+	public void refreshAvailabilityList() {
+		
+	}
+
+
+	public JList unscheduledJobList, availableEngineerList, availableEquipmentList;
+	
+	public void setAvailabilityListPanel() {
+		
+		JPanel listPanel;
+		JButton unscheduledJobsButton, availableEngineersButton, availableEquipmentButton;
+			
+		listPanel = new JPanel(null);
+
 		unscheduledJobList = new JList();
 		availableEngineerList = new JList();
 		availableEquipmentList = new JList();
+		
+		unscheduledJobsButton = new JButton("Unscheduled Jobs");
+		unscheduledJobsButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				refreshAvailabilityList();
+				if(unscheduledJobList.isVisible()) {
+					unscheduledJobList.setVisible(false);
+				} else {
+					unscheduledJobList.setVisible(true);
+				}
+			}
+		});
+		unscheduledJobsButton.setHorizontalAlignment(SwingConstants.LEFT);
+		availableEngineersButton = new JButton("Available Engineers");
+		availableEngineersButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				refreshAvailabilityList();
+				if(availableEngineerList.isVisible()) {
+					availableEngineerList.setVisible(false);
+				} else {
+					availableEngineerList.setVisible(true);
+				}
+			}
+		});
+		availableEngineersButton.setHorizontalAlignment(SwingConstants.LEFT);
+		availableEquipmentButton = new JButton("Available Equipment");
+		availableEquipmentButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				refreshAvailabilityList();
+				if(availableEquipmentList.isVisible()) {
+					availableEquipmentList.setVisible(false);
+				} else {
+					availableEquipmentList.setVisible(true);
+				}
+			}
+		});
+		availableEquipmentButton.setHorizontalAlignment(SwingConstants.LEFT);
 
-		availabilityListPanel = new JPanel(null);
-		availabilityListPanel.setSize(360, 750);
-		availabilityListPanel.setLocation(620, 0);
-		availabilityListPanel.setLayout(null);
+		availabilityListPanel = new JScrollPane(listPanel);
+		availabilityListPanel.setBounds(640, 40, 360, 750);
 		
-		availabilityListPanel.add(menuBar);
-		availabilityListPanel.add(listsScrollPane);
-		menuBar.add(menuLabel);
-		menuBar.add(menuDropDown);
-		listsScrollPane.add(unscheduledJobsButton);
-		listsScrollPane.add(unscheduledJobList);
-		listsScrollPane.add(availableEngineersButton);
-		listsScrollPane.add(availableEngineerList);
-		listsScrollPane.add(availableEquipmentButton);
-		listsScrollPane.add(availableEquipmentList);
+		listPanel.add(unscheduledJobsButton);
+		listPanel.add(unscheduledJobList);
+		listPanel.add(availableEngineersButton);
+		listPanel.add(availableEngineerList);
+		listPanel.add(availableEquipmentButton);
+		listPanel.add(availableEquipmentList);
 		
-		unscheduledJobsButton.setSize(100, 50);
-		availableEngineersButton.setSize(100, 50);
-		availableEquipmentButton.setSize(100, 50);
+		refreshLists(listPanel, unscheduledJobsButton, availableEngineersButton, availableEquipmentButton, 
+				unscheduledJobList, availableEngineerList, availableEquipmentList);
+		
 	}
 
-	public void refreshLists() {
-		
+	public void refreshLists(JPanel listPanel, JButton unscheduledJobsButton, JButton availableEngineersButton, JButton availableEquipmentButton, 
+			JList unscheduledJobList, JList availableEngineerList, JList availableEquipmentList) {
+		unscheduledJobsButton.setBounds(5, 0, 200, 30);
+		availableEngineersButton.setBounds(5, unscheduledJobsButton.getHeight() + unscheduledJobList.getHeight(), 200, 30);
+		availableEquipmentButton.setBounds(5, unscheduledJobsButton.getHeight() + unscheduledJobList.getHeight() 
+				+ availableEngineersButton.getHeight() + availableEngineerList.getHeight(), 200, 30);
+		listPanel.setBounds(5, 5, 350, unscheduledJobsButton.getHeight() + unscheduledJobList.getHeight() 
+				+ availableEngineersButton.getHeight() + availableEngineerList.getHeight() 
+				+ availableEquipmentButton.getHeight() + availableEquipmentList.getHeight());
 	}
 	
 	public void setCalendarPanel() {
@@ -194,7 +284,7 @@ public class UserInterface {
 		dayBound = cal.get(GregorianCalendar.DAY_OF_MONTH);
 		monthBound = cal.get(GregorianCalendar.MONTH);
 		yearBound = cal.get(GregorianCalendar.YEAR);
-		currentMonth = monthBound; 
+		currentMonth = monthBound;
 		currentYear = yearBound;
 		
 		String[] headers = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; //All headers
