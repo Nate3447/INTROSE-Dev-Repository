@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import classes.Engineer;
+import classes.*;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -83,8 +83,8 @@ public class UserInterface {
 		listCardsPanel = new JPanel(new CardLayout());
 		listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
 		listCardsPanel.add(viewEngineersPanel, ENGINEERS);
-		// listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		// listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
+		// listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		
 		listCardsPanel.setBounds(640, 40, 360, 710);
 		
@@ -113,32 +113,11 @@ public class UserInterface {
 		menuBar.add(menuDropDown);
 	}
 	
-	public Engineer[] getEngineers() {
-		Engineer[] engineers;
-		
-		
-		
-		return engineers;
-	}
-	
-	public Engineer[] getAvailableEngineers() {
-		Engineer[] engineers;
-		
-		return engineers;
-	}
-	
-	public void setViewEquipmentPanel() {
-		
-	}
-	
 	public void setViewJobOrdersPanel() {
 		
 	}
 	
-	public void refreshAvailabilityList() {
-		
-	}
-
+	// AVAILABILITY LISTS PANEL COMPONENTS
 
 	public JList unscheduledJobList, availableEngineerList, availableEquipmentList;
 	
@@ -208,6 +187,10 @@ public class UserInterface {
 		
 	}
 
+	public void refreshAvailabilityList() {
+		
+	}
+
 	public void refreshLists(JPanel listPanel, JButton unscheduledJobsButton, JButton availableEngineersButton, JButton availableEquipmentButton, 
 			JList unscheduledJobList, JList availableEngineerList, JList availableEquipmentList) {
 		unscheduledJobsButton.setBounds(5, 0, 200, 30);
@@ -218,6 +201,20 @@ public class UserInterface {
 				+ availableEngineersButton.getHeight() + availableEngineerList.getHeight() 
 				+ availableEquipmentButton.getHeight() + availableEquipmentList.getHeight());
 	}
+	
+	public Engineer[] getAvailableEngineers() {
+		Engineer[] engineers;
+		
+		return engineers;
+	}
+	
+	public Equipment[] getAvailableEquipment() {
+		Equipment[] equipment;
+		
+		return equipment
+	}
+	
+	// VIEW ENGINEERS PANEL COMPONENTS
 	
 	public void setViewEngineersPanel() {
 		int y = 5;
@@ -239,6 +236,45 @@ public class UserInterface {
 		viewEngineersPanel = new JScrollPane(listPanel);
 		viewEngineersPanel.setBounds(640, 40, 360, 750);
 	}
+	
+	public Engineer[] getEngineers() {
+		Engineer[] engineers;
+		
+		
+		
+		return engineers;
+	}
+	
+	// VIEW EQUIPMENT PANEL METHODS
+	
+	public void setViewEquipmentPanel() {
+		int y = 5;
+		JPanel listPanel = new JPanel();
+		Equipment[] equipment = getEquipment();
+		EquipmentPanel equipmentPanel = new EquipmentPanel();
+		int i;
+		
+		for(i=0; i<equipment.length; i++) {
+			equipmentPanel = new EquipmentPanel(equipment[i]);
+			listPanel.add(equipmentPanel);
+			equipmentPanel.setLocation(5, y);
+			y += equipmentPanel.getHeight();
+		}
+		if(i > 0) {
+			listPanel.setSize(360, equipmentPanel.getHeight() * equipment.length + 10);
+		}
+		
+		viewEquipmentPanel = new JScrollPane(listPanel);
+		viewEquipmentPanel.setBounds(640, 40, 360, 750);
+	}
+	
+	public Equipment[] getEquipment() {
+		Equipment[] equipment;
+		
+		return equipment;
+	}
+	
+	// CALENDAR PANEL METHODS
 	
 	public void setCalendarPanel() {
 		
