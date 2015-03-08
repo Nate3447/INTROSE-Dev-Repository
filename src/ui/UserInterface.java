@@ -1,27 +1,27 @@
 package ui;
 
+import classes.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import classes.*;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-
 
 public class UserInterface {
+	
+	private Database database;
 	
 	public final static String AVAILABILITY_LIST = "View Availability Lists";
 	public final static String ENGINEERS = "View Engineers";
 	public final static String JOB_ORDERS = "View Job Orders";
 	public final static String EQUIPMENT = "View Equipment";
+	public final static String ADD_ENGINEER = "Add Engineer";
+	public final static String ADD_EQUIPMENT = "Add Equipment";
+	public final static String ADD_JOB = "Add Job Order";
 
 	public JFrame interfaceFrame;
 	public Container pane;
@@ -32,6 +32,9 @@ public class UserInterface {
 	public JScrollPane viewJobOrdersPanel;
 	public JScrollPane viewEquipmentPanel;
 	public JPanel jobInfoPanel;
+	public JPanel addEngineerPanel;
+	public JPanel addEquipmentPanel;
+	public JPanel addJobOrderPanel;
 	
 	// calendarPanel Components
 
@@ -48,11 +51,13 @@ public class UserInterface {
 	public DefaultTableModel modelCalendarTable;
 	
 	
-	public UserInterface() {
+	public UserInterface(Database database) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
 		catch (Exception e) {}
+		
+		this.database = database;
 		
 		interfaceFrame = new JFrame ("BEMC Smart Scheduler");
 		interfaceFrame.setSize(1020, 800);
@@ -67,6 +72,9 @@ public class UserInterface {
 		setViewEngineersPanel();
 		setViewEquipmentPanel();
 		setViewJobOrdersPanel();
+		setAddEngineerPanel();
+		setAddEquipmentPanel();
+		setAddJobOrderPanel();
 		setListCardsPanel();
 		
 		pane.add(calendarPanel);
@@ -85,8 +93,40 @@ public class UserInterface {
 		listCardsPanel.add(viewEngineersPanel, ENGINEERS);
 		listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
 		listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
+		listCardsPanel.add(addEngineerPanel, ADD_ENGINEER);
+		listCardsPanel.add(addEquipmentPanel, ADD_EQUIPMENT);
+		listCardsPanel.add(addJobOrderPanel, ADD_JOB);
 		
 		listCardsPanel.setBounds(640, 40, 360, 710);
+		
+	}
+	
+	public void setAddEngineerPanel() {
+		JLabel nameLabel, specialtiesLabel;
+		JTextField nameInput, specialtiesInput;
+		JButton addButton, cancelButton;
+		
+		
+	}
+	
+	public void setAddEquipmentPanel() {
+		JLabel nameLabel, idNumberLabel, locationLabel, borrowerNameLabel;
+		JLabel borrowDateLabel, borrowMonthLabel, borrowDayLabel, borrowYearLabel;
+		JLabel returnDateLabel, returnMonthLabel, returnDayLabel, returnYearLabel;
+		JLabel calibrationDateLabel, calibrationMonthLabel, calibrationDayLabel, calibrationYearLabel;
+		JTextField nameInput, idNumberInput, locationInput, borrowerNameInput; 
+		JTextField borrowMonthInput, borrowDayInput, borrowYearInput;
+		JTextField returnMonthInput, returnDayInput, returnYearInput; 
+		JTextField calibrationMonthInput, calibrationDayInput, calibrationYearInput;
+		JButton addButton, cancelButton;
+		
+	}
+	
+	public void setAddJobOrderPanel() {
+		JLabel orderNoLabel, referenceNoLabel, hospitalLabel, addressLabel, contactLabel, contactNoLabel;
+		JLabel jobMonthLabel, jobDayLabel, jobYearLabel;
+		JLabel completionMonthLabel, completionDayLabel, completionYearLabel;
+		
 		
 	}
 	
@@ -198,53 +238,61 @@ public class UserInterface {
 				+ availableEquipmentButton.getHeight() + availableEquipmentList.getHeight());
 	}
 	
-	public JobOrder[] getUnscheduledJobOrders() {
-		JobOrder[] jobOrders;
+	/*
+	
+	public ArrayList<JobOrder> getUnscheduledJobOrders() {
+		ArrayList<JobOrder> jobOrders;
 		
-		// sql stuff
+		
 		
 		return jobOrders;
 	}
 	
-	public Engineer[] getAvailableEngineers() {
-		Engineer[] engineers;
+	public ArrayList<Engineer> getAvailableEngineers() {
+		ArrayList<Engineer> engineers;
+		
+		
 		
 		return engineers;
 	}
 	
-	public Equipment[] getAvailableEquipment() {
-		Equipment[] equipment;
+	public ArrayList<Equipment> getAvailableEquipment() {
+		ArrayList<Equipment> equipment;
+		
+		
 		
 		return equipment;
 	}
+	
+	*/
 	
 	// VIEW ENGINEERS PANEL COMPONENTS
 	
 	public void setViewEngineersPanel() {
 		int y = 5;
 		JPanel listPanel = new JPanel();
-		Engineer[] engineers = getEngineers();
+		ArrayList<Engineer> engineers = getEngineers();
 		EngineerPanel engineerPanel = new EngineerPanel();
 		int i;
 		
-		for(i=0; i<engineers.length; i++) {
-			engineerPanel = new EngineerPanel(engineers[i]);
+		for(i=0; i<engineers.size(); i++) {
+			engineerPanel = new EngineerPanel(engineers.get(i));
 			listPanel.add(engineerPanel);
 			engineerPanel.setLocation(5, y);
 			y += engineerPanel.getHeight();
 		}
 		if(i > 0) {
-			listPanel.setSize(360, engineerPanel.getHeight() * engineers.length + 10);
+			listPanel.setSize(360, engineerPanel.getHeight() * engineers.size() + 10);
 		}
 		
 		viewEngineersPanel = new JScrollPane(listPanel);
 		viewEngineersPanel.setBounds(640, 40, 360, 750);
 	}
 	
-	public Engineer[] getEngineers() {
-		Engineer[] engineers;
+	public ArrayList<Engineer> getEngineers() {
+		ArrayList<Engineer> engineers;
 		
-		
+		engineers = database.getEngineerList();
 		
 		return engineers;
 	}
@@ -254,28 +302,28 @@ public class UserInterface {
 	public void setViewEquipmentPanel() {
 		int y = 5;
 		JPanel listPanel = new JPanel();
-		Equipment[] equipment = getEquipment();
+		ArrayList<Equipment> equipment = getEquipment();
 		EquipmentPanel equipmentPanel = new EquipmentPanel();
 		int i;
 		
-		for(i=0; i<equipment.length; i++) {
-			equipmentPanel = new EquipmentPanel(equipment[i]);
+		for(i=0; i<equipment.size(); i++) {
+			equipmentPanel = new EquipmentPanel(equipment.get(i));
 			listPanel.add(equipmentPanel);
 			equipmentPanel.setLocation(5, y);
 			y += equipmentPanel.getHeight();
 		}
 		if(i > 0) {
-			listPanel.setSize(360, equipmentPanel.getHeight() * equipment.length + 10);
+			listPanel.setSize(360, equipmentPanel.getHeight() * equipment.size() + 10);
 		}
 		
 		viewEquipmentPanel = new JScrollPane(listPanel);
 		viewEquipmentPanel.setBounds(640, 40, 360, 750);
 	}
 	
-	public Equipment[] getEquipment() {
-		Equipment[] equipment;
+	public ArrayList<Equipment> getEquipment() {
+		ArrayList<Equipment> equipment;
 		
-		
+		equipment = database.getEquipmentList();
 		
 		return equipment;
 	}
@@ -285,28 +333,28 @@ public class UserInterface {
 	public void setViewJobOrdersPanel() {
 		int y = 5;
 		JPanel listPanel = new JPanel();
-		JobOrder[] jobOrders = getJobOrders();
+		ArrayList<JobOrder> jobOrders = getJobOrders();
 		JobOrderPanel jobOrderPanel = new JobOrderPanel();
 		int i;
 		
-		for(i=0; i<jobOrders.length; i++) {
-			jobOrderPanel = new JobOrderPanel(jobOrders[i]);
+		for(i=0; i<jobOrders.size(); i++) {
+			jobOrderPanel = new JobOrderPanel(jobOrders.get(i));
 			listPanel.add(jobOrderPanel);
 			jobOrderPanel.setLocation(5, y);
 			y += jobOrderPanel.getHeight();
 		}
 		if(i > 0) {
-			listPanel.setSize(360,  jobOrderPanel.getHeight() * jobOrders.length + 10);
+			listPanel.setSize(360,  jobOrderPanel.getHeight() * jobOrders.size() + 10);
 		}
 		
 		viewJobOrdersPanel = new JScrollPane(listPanel);
 		viewJobOrdersPanel.setBounds(640, 40, 360, 750);
 	}
 	
-	public JobOrder[] getJobOrders() {
-		JobOrder[] jobOrders;
+	public ArrayList<JobOrder> getJobOrders() {
+		ArrayList<JobOrder> jobOrders;
 		
-		
+		jobOrders = database.getJobOrderList();
 		
 		return jobOrders;
 	}

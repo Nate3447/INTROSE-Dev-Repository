@@ -1,7 +1,6 @@
 package ui;
 
 import javax.swing.*;
-
 import classes.Equipment;
 
 public class EquipmentPanel extends JPanel {
@@ -15,7 +14,7 @@ public class EquipmentPanel extends JPanel {
 	public JLabel borrowerNameLabel;
 	
 	public EquipmentPanel() {
-		;
+		nameLabel = new JLabel();
 	}
 	
 	public EquipmentPanel(Equipment equipment) {

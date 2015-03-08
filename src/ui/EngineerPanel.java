@@ -9,7 +9,7 @@ public class EngineerPanel extends JPanel {
 	public JLabel specialties;	
 	
 	public EngineerPanel() {
-		;
+		nameLabel = new JLabel();
 	}
 	
 	public EngineerPanel(Engineer engineer) {

@@ -1,7 +1,6 @@
 package ui;
 
 import javax.swing.*;
-
 import classes.JobOrder;
 
 public class JobOrderPanel extends JPanel {
@@ -12,7 +11,7 @@ public class JobOrderPanel extends JPanel {
 	public JLabel jobDateLabel;
 	
 	public JobOrderPanel() {
-		;
+		orderNoLabel = new JLabel();
 	}
 	
 	public JobOrderPanel(JobOrder jobOrder) {
