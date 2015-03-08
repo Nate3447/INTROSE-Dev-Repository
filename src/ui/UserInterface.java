@@ -83,8 +83,8 @@ public class UserInterface {
 		listCardsPanel = new JPanel(new CardLayout());
 		listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
 		listCardsPanel.add(viewEngineersPanel, ENGINEERS);
-		// listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
-		// listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
+		listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
+		listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		
 		listCardsPanel.setBounds(640, 40, 360, 710);
 		
@@ -111,10 +111,6 @@ public class UserInterface {
 
 		menuBar.add(menuLabel);
 		menuBar.add(menuDropDown);
-	}
-	
-	public void setViewJobOrdersPanel() {
-		
 	}
 	
 	// AVAILABILITY LISTS PANEL COMPONENTS
@@ -202,6 +198,14 @@ public class UserInterface {
 				+ availableEquipmentButton.getHeight() + availableEquipmentList.getHeight());
 	}
 	
+	public JobOrder[] getUnscheduledJobOrders() {
+		JobOrder[] jobOrders;
+		
+		// sql stuff
+		
+		return jobOrders;
+	}
+	
 	public Engineer[] getAvailableEngineers() {
 		Engineer[] engineers;
 		
@@ -211,7 +215,7 @@ public class UserInterface {
 	public Equipment[] getAvailableEquipment() {
 		Equipment[] equipment;
 		
-		return equipment
+		return equipment;
 	}
 	
 	// VIEW ENGINEERS PANEL COMPONENTS
@@ -271,7 +275,40 @@ public class UserInterface {
 	public Equipment[] getEquipment() {
 		Equipment[] equipment;
 		
+		
+		
 		return equipment;
+	}
+	
+	// JOB ORDERS PANEL METHODS
+	
+	public void setViewJobOrdersPanel() {
+		int y = 5;
+		JPanel listPanel = new JPanel();
+		JobOrder[] jobOrders = getJobOrders();
+		JobOrderPanel jobOrderPanel = new JobOrderPanel();
+		int i;
+		
+		for(i=0; i<jobOrders.length; i++) {
+			jobOrderPanel = new JobOrderPanel(jobOrders[i]);
+			listPanel.add(jobOrderPanel);
+			jobOrderPanel.setLocation(5, y);
+			y += jobOrderPanel.getHeight();
+		}
+		if(i > 0) {
+			listPanel.setSize(360,  jobOrderPanel.getHeight() * jobOrders.length + 10);
+		}
+		
+		viewJobOrdersPanel = new JScrollPane(listPanel);
+		viewJobOrdersPanel.setBounds(640, 40, 360, 750);
+	}
+	
+	public JobOrder[] getJobOrders() {
+		JobOrder[] jobOrders;
+		
+		
+		
+		return jobOrders;
 	}
 	
 	// CALENDAR PANEL METHODS
