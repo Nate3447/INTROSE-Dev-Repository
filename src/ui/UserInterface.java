@@ -91,43 +91,244 @@ public class UserInterface {
 		listCardsPanel = new JPanel(new CardLayout());
 		listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
 		listCardsPanel.add(viewEngineersPanel, ENGINEERS);
-		listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
-		listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		listCardsPanel.add(addEngineerPanel, ADD_ENGINEER);
+		listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
 		listCardsPanel.add(addEquipmentPanel, ADD_EQUIPMENT);
+		listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		listCardsPanel.add(addJobOrderPanel, ADD_JOB);
 		
 		listCardsPanel.setBounds(640, 40, 360, 710);
 		
 	}
 	
+	public JTextField engineerNameInput, specialtiesInput;
+	
 	public void setAddEngineerPanel() {
-		JLabel nameLabel, specialtiesLabel;
-		JTextField nameInput, specialtiesInput;
-		JButton addButton, cancelButton;
+		JLabel nameLabel = new JLabel("Name: "); 
+		JLabel specialtiesLabel = new JLabel("Specialties: ");
+		engineerNameInput = new JTextField();
+		specialtiesInput = new JTextField();
+		JButton addButton = new JButton("Add");
+		JButton cancelButton = new JButton("Cancel");
+		addEngineerPanel = new JPanel(null);
 		
+		addButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				database.addEngineer(new Engineer(engineerNameInput.getText(), specialtiesInput.getText()));
+			}
+		});
+		cancelButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		
+		nameLabel.setBounds(40, 20, 60, 30);
+		specialtiesLabel.setBounds(40, 45, 60, 30);
+		engineerNameInput.setBounds(120, 25, 180, 20);
+		specialtiesInput.setBounds(120, 50, 180, 20);
+		addButton.setBounds(50, 200, 70, 30);
+		cancelButton.setBounds(200, 200, 70, 30);
+		addEngineerPanel.setBounds(640, 40, 360, 710);
+		
+		addEngineerPanel.add(nameLabel);
+		addEngineerPanel.add(specialtiesLabel);
+		addEngineerPanel.add(engineerNameInput);
+		addEngineerPanel.add(specialtiesInput);
+		addEngineerPanel.add(addButton);
+		addEngineerPanel.add(cancelButton);
 	}
+	
+	public JTextField equipmentNameInput, idNumberInput, locationInput, borrowerNameInput, 
+		borrowMonthInput, borrowDayInput, borrowYearInput, returnMonthInput, returnDayInput,
+		returnYearInput, calibrationMonthInput, calibrationDayInput, calibrationYearInput;
 	
 	public void setAddEquipmentPanel() {
-		JLabel nameLabel, idNumberLabel, locationLabel, borrowerNameLabel;
-		JLabel borrowDateLabel, borrowMonthLabel, borrowDayLabel, borrowYearLabel;
-		JLabel returnDateLabel, returnMonthLabel, returnDayLabel, returnYearLabel;
-		JLabel calibrationDateLabel, calibrationMonthLabel, calibrationDayLabel, calibrationYearLabel;
-		JTextField nameInput, idNumberInput, locationInput, borrowerNameInput; 
-		JTextField borrowMonthInput, borrowDayInput, borrowYearInput;
-		JTextField returnMonthInput, returnDayInput, returnYearInput; 
-		JTextField calibrationMonthInput, calibrationDayInput, calibrationYearInput;
-		JButton addButton, cancelButton;
+		JLabel nameLabel = new JLabel("Name: ");
+		JLabel idNumberLabel = new JLabel("ID No.: ");
+		JLabel locationLabel = new JLabel("Location");
+		JLabel borrowerNameLabel = new JLabel("Borrower Name: ");
+		JLabel borrowDateLabel = new JLabel("Borrow Date (mm/dd/yy): ");
+		JLabel returnDateLabel = new JLabel("Return Date (mm/dd/yy): ");
+		JLabel calibrationDateLabel = new JLabel("Calibration Date (mm/dd/yy): ");
+		equipmentNameInput = new JTextField();
+		idNumberInput = new JTextField();
+		locationInput = new JTextField();
+		borrowerNameInput = new JTextField(); 
+		borrowMonthInput = new JTextField();
+		borrowDayInput = new JTextField();
+		borrowYearInput = new JTextField();
+		returnMonthInput = new JTextField();
+		returnDayInput = new JTextField();
+		returnYearInput = new JTextField(); 
+		calibrationMonthInput = new JTextField();
+		calibrationDayInput = new JTextField();
+		calibrationYearInput = new JTextField();
+		JButton addButton = new JButton("Add");
+		JButton cancelButton = new JButton("Cancel");
+		addEquipmentPanel = new JPanel(null);
+		
+		addButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				database.addEquipment(new Equipment(equipmentNameInput.getText(), idNumberInput.getText(), 
+						locationInput.getText(), Integer.parseInt(borrowYearInput.getText()), Integer.parseInt(borrowMonthInput.getText()), 
+						Integer.parseInt(borrowDayInput.getText()), Integer.parseInt(returnYearInput.getText()), Integer.parseInt(returnMonthInput.getText()), 
+						Integer.parseInt(returnDayInput.getText()), Integer.parseInt(calibrationYearInput.getText()), Integer.parseInt(calibrationMonthInput.getText()), 
+						Integer.parseInt(calibrationDayInput.getText()), borrowerNameInput.getText()));
+			}
+		});
+		cancelButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		
+		nameLabel.setBounds(20, 20, 100, 30);
+		idNumberLabel.setBounds(20, 50, 100, 30);
+		locationLabel.setBounds(20, 80, 100, 30);
+		borrowerNameLabel.setBounds(20, 110, 100, 30);
+		borrowDateLabel.setBounds(20, 140, 150, 30);
+		returnDateLabel.setBounds(20, 170, 150, 30);
+		calibrationDateLabel.setBounds(20, 200, 150, 30);
+		equipmentNameInput.setBounds(120, 25, 220, 20);
+		idNumberInput.setBounds(120, 55, 220, 20);
+		locationInput.setBounds(120, 85, 220, 20);
+		borrowerNameInput.setBounds(120, 115, 220, 20);
+		borrowMonthInput.setBounds(180, 145, 30, 20);
+		borrowDayInput.setBounds(220, 145, 30, 20);
+		borrowYearInput.setBounds(260, 145, 30, 20);
+		returnMonthInput.setBounds(180, 175, 30, 20);
+		returnDayInput.setBounds(220, 175, 30, 20);
+		returnYearInput.setBounds(260, 175, 30, 20);
+		calibrationMonthInput.setBounds(180, 205, 30, 20);
+		calibrationDayInput.setBounds(220, 205, 30, 20);
+		calibrationYearInput.setBounds(260, 205, 30, 20);
+		addButton.setBounds(100, 250, 70, 30);
+		cancelButton.setBounds(200, 250, 70, 30);
+		addEquipmentPanel.setBounds(640, 40, 360, 710);
+		
+		addEquipmentPanel.add(nameLabel);
+		addEquipmentPanel.add(idNumberLabel);
+		addEquipmentPanel.add(locationLabel);
+		addEquipmentPanel.add(borrowerNameLabel);
+		addEquipmentPanel.add(borrowDateLabel);
+		addEquipmentPanel.add(returnDateLabel);
+		addEquipmentPanel.add(calibrationDateLabel);
+		addEquipmentPanel.add(equipmentNameInput);
+		addEquipmentPanel.add(idNumberInput);
+		addEquipmentPanel.add(locationInput);
+		addEquipmentPanel.add(borrowerNameInput);
+		addEquipmentPanel.add(borrowMonthInput);
+		addEquipmentPanel.add(borrowDayInput);
+		addEquipmentPanel.add(borrowYearInput);
+		addEquipmentPanel.add(returnMonthInput);
+		addEquipmentPanel.add(returnDayInput);
+		addEquipmentPanel.add(returnYearInput);
+		addEquipmentPanel.add(calibrationMonthInput);
+		addEquipmentPanel.add(calibrationDayInput);
+		addEquipmentPanel.add(calibrationYearInput);
+		addEquipmentPanel.add(addButton);
+		addEquipmentPanel.add(cancelButton);
+		
 		
 	}
 	
+	JTextField orderNoInput, referenceNoInput, hospitalInput, addressInput, contactInput,
+		contactNoInput, jobMonthInput, jobDayInput, jobYearInput, completionMonthInput, completionDayInput,
+		completionYearInput;
+	
 	public void setAddJobOrderPanel() {
-		JLabel orderNoLabel, referenceNoLabel, hospitalLabel, addressLabel, contactLabel, contactNoLabel;
-		JLabel jobMonthLabel, jobDayLabel, jobYearLabel;
-		JLabel completionMonthLabel, completionDayLabel, completionYearLabel;
+		JLabel orderNoLabel = new JLabel("Order No.: ");
+		JLabel referenceNoLabel = new JLabel("Reference No.: ");
+		JLabel hospitalLabel = new JLabel("Hospital: ");
+		JLabel addressLabel = new JLabel("Address");
+		JLabel contactLabel = new JLabel("Contact Person: ");
+		JLabel contactNoLabel = new JLabel("Contact No.: ");
+		JLabel jobDateLabel = new JLabel("Job Date (mm/dd/yy): ");
+		JLabel completionDateLabel = new JLabel("Completion Date (mm/dd/yy): ");
+		orderNoInput = new JTextField();
+		referenceNoInput = new JTextField();
+		hospitalInput = new JTextField();
+		addressInput = new JTextField();
+		contactInput = new JTextField();
+		contactNoInput = new JTextField();
+		jobMonthInput = new JTextField();
+		jobDayInput = new JTextField();
+		jobYearInput = new JTextField();
+		completionMonthInput = new JTextField();
+		completionDayInput = new JTextField();
+		completionYearInput = new JTextField();
+		JButton addButton = new JButton("Add");
+		JButton cancelButton = new JButton("Cancel");
+		addJobOrderPanel = new JPanel(null);
 		
+		addButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				database.addJobOrder(new JobOrder(orderNoInput.getText(), referenceNoInput.getText(),
+						Integer.parseInt(jobYearInput.getText()), Integer.parseInt(jobMonthInput.getText()), 
+						Integer.parseInt(jobDayInput.getText()), Integer.parseInt(completionYearInput.getText()), 
+						Integer.parseInt(completionMonthInput.getText()), Integer.parseInt(completionDayInput.getText()), 
+						hospitalInput.getText(), addressInput.getText(), contactInput.getText(), contactNoInput.getText()));
+			}
+		});
+		cancelButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		
+		orderNoLabel.setBounds(20, 20, 100, 30);
+		referenceNoLabel.setBounds(20, 50, 100, 30);
+		hospitalLabel.setBounds(20, 80, 100, 30);
+		addressLabel.setBounds(20, 110, 100, 30);
+		contactLabel.setBounds(20, 140, 100, 30);
+		contactNoLabel.setBounds(20, 170, 100, 30);
+		jobDateLabel.setBounds(20, 200, 150, 30);
+		completionDateLabel.setBounds(20, 230, 150, 30);
+		orderNoInput.setBounds(120, 25, 220, 20);
+		referenceNoInput.setBounds(120, 55, 220, 20);
+		hospitalInput.setBounds(120, 85, 220, 20);
+		addressInput.setBounds(120, 115, 220, 20);
+		contactInput.setBounds(120, 145, 220, 20);
+		contactNoInput.setBounds(120, 175, 220, 20);
+		jobMonthInput.setBounds(180, 205, 30, 20);
+		jobDayInput.setBounds(220, 205, 30, 20);
+		jobYearInput.setBounds(260, 205, 30, 20);
+		completionMonthInput.setBounds(180, 235, 30, 20);
+		completionDayInput.setBounds(220, 235, 30, 20);
+		completionYearInput.setBounds(260, 235, 30, 20);
+		addButton.setBounds(100, 285, 70, 30);
+		cancelButton.setBounds(200, 285, 70, 30);
+		addJobOrderPanel.setBounds(640, 40, 360, 710);
+		
+		addJobOrderPanel.add(orderNoLabel);
+		addJobOrderPanel.add(referenceNoLabel);
+		addJobOrderPanel.add(hospitalLabel);
+		addJobOrderPanel.add(addressLabel);
+		addJobOrderPanel.add(contactLabel);
+		addJobOrderPanel.add(contactNoLabel);
+		addJobOrderPanel.add(jobDateLabel);
+		addJobOrderPanel.add(completionDateLabel);
+		addJobOrderPanel.add(orderNoInput);
+		addJobOrderPanel.add(referenceNoInput);
+		addJobOrderPanel.add(hospitalInput);
+		addJobOrderPanel.add(addressInput);
+		addJobOrderPanel.add(contactInput);
+		addJobOrderPanel.add(contactNoInput);
+		addJobOrderPanel.add(jobMonthInput);
+		addJobOrderPanel.add(jobDayInput);
+		addJobOrderPanel.add(jobYearInput);
+		addJobOrderPanel.add(completionMonthInput);
+		addJobOrderPanel.add(completionDayInput);
+		addJobOrderPanel.add(completionYearInput);
+		addJobOrderPanel.add(addButton);
+		addJobOrderPanel.add(cancelButton);
 	}
 	
 	public void setMenuBar() {
@@ -139,7 +340,7 @@ public class UserInterface {
 		menuLabel = new JLabel("Menu: ");
 		menuLabel.setBounds(10, 10, 40, 20);
 		menuLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		String[] comboBoxItems = { AVAILABILITY_LIST, ENGINEERS, EQUIPMENT, JOB_ORDERS };
+		String[] comboBoxItems = { AVAILABILITY_LIST, ENGINEERS, ADD_ENGINEER, EQUIPMENT, ADD_EQUIPMENT, JOB_ORDERS, ADD_JOB };
 		menuDropDown = new JComboBox(comboBoxItems);
 		menuDropDown.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -209,7 +410,7 @@ public class UserInterface {
 		availableEquipmentButton.setHorizontalAlignment(SwingConstants.LEFT);
 
 		availabilityListPanel = new JScrollPane(listPanel);
-		availabilityListPanel.setBounds(640, 40, 360, 750);
+		availabilityListPanel.setBounds(640, 40, 360, 710);
 		
 		listPanel.add(unscheduledJobsButton);
 		listPanel.add(unscheduledJobList);
@@ -286,7 +487,7 @@ public class UserInterface {
 		}
 		
 		viewEngineersPanel = new JScrollPane(listPanel);
-		viewEngineersPanel.setBounds(640, 40, 360, 750);
+		viewEngineersPanel.setBounds(640, 40, 360, 710);
 	}
 	
 	public ArrayList<Engineer> getEngineers() {
@@ -317,7 +518,7 @@ public class UserInterface {
 		}
 		
 		viewEquipmentPanel = new JScrollPane(listPanel);
-		viewEquipmentPanel.setBounds(640, 40, 360, 750);
+		viewEquipmentPanel.setBounds(640, 40, 360, 710);
 	}
 	
 	public ArrayList<Equipment> getEquipment() {
@@ -348,7 +549,7 @@ public class UserInterface {
 		}
 		
 		viewJobOrdersPanel = new JScrollPane(listPanel);
-		viewJobOrdersPanel.setBounds(640, 40, 360, 750);
+		viewJobOrdersPanel.setBounds(640, 40, 360, 710);
 	}
 	
 	public ArrayList<JobOrder> getJobOrders() {

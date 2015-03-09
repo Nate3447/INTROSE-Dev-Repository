@@ -5,8 +5,8 @@ import java.util.Date;
 
 
 public class JobOrder {
-	private int orderNo;
-	private int referenceNo;
+	private String orderNo;
+	private String referenceNo;
 	private Date jobDate;
 	private Date completionDate;
 	private String hospital;
@@ -15,21 +15,34 @@ public class JobOrder {
 	private String contactNo;
 	private Calendar calendar = Calendar.getInstance();
 	
+	public JobOrder(String orderNo, String referenceNo, int jobYear, int jobMonth, int jobDay, 
+			int completionYear, int completionMonth, int completionDay, String hospital, 
+			String address, String contactPerson, String contactNo) {
+		setOrderNo(orderNo);
+		setReferenceNo(referenceNo);
+		setJobDate(jobYear, jobMonth, jobDay);
+		setCompletionDate(completionYear, completionMonth, completionDay);
+		setHospital(hospital);
+		setAddress(address);
+		setContactPerson(contactPerson);
+		setContactNumber(contactNo);
+	}
+	
 	// get/set methods
 	
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
 	
-	public int getOrderNo() {
+	public String getOrderNo() {
 		return orderNo;
 	}
 	
-	public void setReferenceNo(int referenceNo) {
+	public void setReferenceNo(String referenceNo) {
 		this.referenceNo = referenceNo;
 	}
 	
-	public int getReferenceNo() {
+	public String getReferenceNo() {
 		return referenceNo;
 	}
 	

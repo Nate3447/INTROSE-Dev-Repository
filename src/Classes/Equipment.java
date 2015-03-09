@@ -14,6 +14,18 @@ public class Equipment {
 	private String borrowerName;
 	private Calendar calendar = Calendar.getInstance();
 	
+	public Equipment(String name, String idNumber, String location, int borrowYear, 
+			int borrowMonth, int borrowDay, int returnYear, int returnMonth, int returnDay,
+			int calibrationYear, int calibrationMonth, int calibrationDay, String borrowerName) {
+		setName(name);
+		setIDNumber(idNumber);
+		setLocation(location);
+		setBorrowDate(borrowYear, borrowMonth, borrowDay);
+		setReturnDate(returnYear, returnMonth, returnDay);
+		setCalibrationDate(calibrationYear, calibrationMonth, calibrationDay);
+		setBorrowerName(borrowerName);
+	}
+	
 	// get/set methods
 	
 	public void setName(String name) {

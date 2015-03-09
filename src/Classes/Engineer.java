@@ -5,8 +5,9 @@ public class Engineer {
 	private String specialties;
 	private boolean available;
 	
-	public Engineer(String name) {
+	public Engineer(String name, String specialties) {
 		setName(name);
+		setSpecialties(specialties);
 	}
 	
 	// get/set methods
@@ -23,7 +24,7 @@ public class Engineer {
 		this.specialties = specialties;
 	}
 	
-	public String getSpecialty() {
+	public String getSpecialties() {
 		return specialties;
 	}
 	
