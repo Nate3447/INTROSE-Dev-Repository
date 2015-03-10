@@ -13,12 +13,17 @@ public class EngineerPanel extends JPanel {
 	}
 	
 	public EngineerPanel(Engineer engineer) {
+		
+		this.setLayout(null);
+		
 		nameLabel = new JLabel("Name: " + engineer.getName());
-		specialties = new JLabel("Specialties: " + specialties);
+		specialties = new JLabel("Specialties: " + engineer.getSpecialties());
 		
 		this.add(nameLabel);
 		this.add(specialties);
 		
+		nameLabel.setBounds(10, 5, 250, 40);
+		specialties.setBounds(10, 50, 250, 40);
 		this.setSize(340, 100);
 		
 	}

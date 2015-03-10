@@ -96,7 +96,6 @@ public class UserInterface {
 		listCardsPanel.add(addEquipmentPanel, ADD_EQUIPMENT);
 		listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		listCardsPanel.add(addJobOrderPanel, ADD_JOB);
-		
 		listCardsPanel.setBounds(640, 40, 360, 710);
 		
 	}
@@ -106,8 +105,8 @@ public class UserInterface {
 	public void setAddEngineerPanel() {
 		JLabel nameLabel = new JLabel("Name: "); 
 		JLabel specialtiesLabel = new JLabel("Specialties: ");
-		engineerNameInput = new JTextField();
-		specialtiesInput = new JTextField();
+		engineerNameInput = new JTextField("");
+		specialtiesInput = new JTextField("");
 		JButton addButton = new JButton("Add");
 		JButton cancelButton = new JButton("Cancel");
 		addEngineerPanel = new JPanel(null);
@@ -344,6 +343,39 @@ public class UserInterface {
 		menuDropDown = new JComboBox(comboBoxItems);
 		menuDropDown.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				switch((String)e.getItem()) {
+					case AVAILABILITY_LIST: setAvailabilityListPanel(); 
+						listCardsPanel.remove(availabilityListPanel);
+						listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
+						break;
+					case ENGINEERS: setViewEngineersPanel(); 
+						listCardsPanel.remove(viewEngineersPanel);
+						listCardsPanel.add(viewEngineersPanel, ENGINEERS);
+						break;
+					case ADD_ENGINEER: setAddEngineerPanel(); 
+						listCardsPanel.remove(addEngineerPanel);
+						listCardsPanel.add(addEngineerPanel, ADD_ENGINEER);
+						break;
+					case EQUIPMENT: setViewEquipmentPanel(); 
+						listCardsPanel.remove(viewEquipmentPanel);
+						listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
+						break;
+					case ADD_EQUIPMENT: setAddEquipmentPanel(); 
+						listCardsPanel.remove(addEquipmentPanel);
+						listCardsPanel.add(addEquipmentPanel, ADD_EQUIPMENT);
+						break;
+					case JOB_ORDERS: setViewJobOrdersPanel(); 
+						listCardsPanel.remove(viewJobOrdersPanel);
+						listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
+						break;
+					case ADD_JOB: setAddJobOrderPanel(); 
+						listCardsPanel.remove(addJobOrderPanel);
+						listCardsPanel.add(addJobOrderPanel, ADD_JOB);
+						break;
+					
+					
+
+				}
 				CardLayout c = (CardLayout)(listCardsPanel.getLayout());
 				c.show(listCardsPanel, (String)e.getItem());
 			}
@@ -471,19 +503,17 @@ public class UserInterface {
 	
 	public void setViewEngineersPanel() {
 		int y = 5;
-		JPanel listPanel = new JPanel();
+		JPanel listPanel = new JPanel(null);
 		ArrayList<Engineer> engineers = getEngineers();
 		EngineerPanel engineerPanel = new EngineerPanel();
 		int i;
-		
+
+		listPanel.setSize(360, engineerPanel.getHeight() * engineers.size() + 10);
 		for(i=0; i<engineers.size(); i++) {
 			engineerPanel = new EngineerPanel(engineers.get(i));
 			listPanel.add(engineerPanel);
 			engineerPanel.setLocation(5, y);
 			y += engineerPanel.getHeight();
-		}
-		if(i > 0) {
-			listPanel.setSize(360, engineerPanel.getHeight() * engineers.size() + 10);
 		}
 		
 		viewEngineersPanel = new JScrollPane(listPanel);
@@ -502,19 +532,17 @@ public class UserInterface {
 	
 	public void setViewEquipmentPanel() {
 		int y = 5;
-		JPanel listPanel = new JPanel();
+		JPanel listPanel = new JPanel(null);
 		ArrayList<Equipment> equipment = getEquipment();
 		EquipmentPanel equipmentPanel = new EquipmentPanel();
 		int i;
-		
+
+		listPanel.setSize(360, equipmentPanel.getHeight() * equipment.size() + 10);
 		for(i=0; i<equipment.size(); i++) {
 			equipmentPanel = new EquipmentPanel(equipment.get(i));
 			listPanel.add(equipmentPanel);
 			equipmentPanel.setLocation(5, y);
 			y += equipmentPanel.getHeight();
-		}
-		if(i > 0) {
-			listPanel.setSize(360, equipmentPanel.getHeight() * equipment.size() + 10);
 		}
 		
 		viewEquipmentPanel = new JScrollPane(listPanel);
@@ -533,19 +561,17 @@ public class UserInterface {
 	
 	public void setViewJobOrdersPanel() {
 		int y = 5;
-		JPanel listPanel = new JPanel();
+		JPanel listPanel = new JPanel(null);
 		ArrayList<JobOrder> jobOrders = getJobOrders();
 		JobOrderPanel jobOrderPanel = new JobOrderPanel();
 		int i;
-		
+
+		listPanel.setSize(360,  jobOrderPanel.getHeight() * jobOrders.size() + 10);
 		for(i=0; i<jobOrders.size(); i++) {
 			jobOrderPanel = new JobOrderPanel(jobOrders.get(i));
 			listPanel.add(jobOrderPanel);
 			jobOrderPanel.setLocation(5, y);
 			y += jobOrderPanel.getHeight();
-		}
-		if(i > 0) {
-			listPanel.setSize(360,  jobOrderPanel.getHeight() * jobOrders.size() + 10);
 		}
 		
 		viewJobOrdersPanel = new JScrollPane(listPanel);

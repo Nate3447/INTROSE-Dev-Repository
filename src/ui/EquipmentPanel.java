@@ -18,6 +18,9 @@ public class EquipmentPanel extends JPanel {
 	}
 	
 	public EquipmentPanel(Equipment equipment) {
+		
+		this.setLayout(null);
+		
 		nameLabel = new JLabel("Equipment: " + equipment.getName());
 		idNumberLabel = new JLabel("ID No.: " + equipment.getIDNumber());
 		locationLabel = new JLabel("Location: " + equipment.getLocation());
@@ -34,6 +37,13 @@ public class EquipmentPanel extends JPanel {
 		this.add(calibrationDateLabel);
 		this.add(borrowerNameLabel);
 		
+		nameLabel.setBounds(0, 0, 0, 0);
+		idNumberLabel.setBounds(0, 0, 0, 0);
+		locationLabel.setBounds(0, 0, 0, 0);
+		borrowDateLabel.setBounds(0, 0, 0, 0);
+		returnDateLabel.setBounds(0, 0, 0, 0);
+		calibrationDateLabel.setBounds(0, 0, 0, 0);
+		borrowerNameLabel.setBounds(0, 0, 0, 0);
 		this.setSize(340, 100);
 	}
 }
