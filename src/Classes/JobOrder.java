@@ -13,6 +13,7 @@ public class JobOrder {
 	private String address;
 	private String contactPerson;
 	private String contactNo;
+	private boolean isScheduled;
 	private Calendar calendar = Calendar.getInstance();
 	
 	public JobOrder(String orderNo, String referenceNo, int jobYear, int jobMonth, int jobDay, 
@@ -26,6 +27,7 @@ public class JobOrder {
 		setAddress(address);
 		setContactPerson(contactPerson);
 		setContactNumber(contactNo);
+		isScheduled = false;
 	}
 	
 	// get/set methods
@@ -96,5 +98,13 @@ public class JobOrder {
 	
 	public String getContactNo() {
 		return contactNo;
+	}
+
+	public void setIsScheduled(boolean isScheduled) {
+		this.isScheduled = isScheduled;
+	}
+	
+	public boolean getIsScheduled() {
+		return isScheduled;
 	}
 }

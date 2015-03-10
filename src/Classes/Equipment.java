@@ -12,6 +12,7 @@ public class Equipment {
 	private Date returnDate;
 	private Date calibrationDate;
 	private String borrowerName;
+	private boolean isAvailable;
 	private Calendar calendar = Calendar.getInstance();
 	
 	public Equipment(String name, String idNumber, String location, int borrowYear, 
@@ -24,6 +25,7 @@ public class Equipment {
 		setReturnDate(returnYear, returnMonth, returnDay);
 		setCalibrationDate(calibrationYear, calibrationMonth, calibrationDay);
 		setBorrowerName(borrowerName);
+		isAvailable = true;
 	}
 	
 	// get/set methods
@@ -90,4 +92,11 @@ public class Equipment {
 		return calibrationDate;
 	}
 	
+	public void setAvailability(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+	
+	public boolean getAvailability() {
+		return isAvailable;
+	}
 }

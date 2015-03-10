@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.LineBorder;
 
 
 public class UserInterface {
@@ -89,6 +90,7 @@ public class UserInterface {
 	public void setListCardsPanel() {
 		
 		listCardsPanel = new JPanel(new CardLayout());
+		listCardsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
 		listCardsPanel.add(viewEngineersPanel, ENGINEERS);
 		listCardsPanel.add(addEngineerPanel, ADD_ENGINEER);

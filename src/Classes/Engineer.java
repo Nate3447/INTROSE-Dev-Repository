@@ -3,7 +3,7 @@ package classes;
 public class Engineer {
 	private String name;
 	private String specialties;
-	private boolean available;
+	private boolean isAvailable;
 	
 	public Engineer(String name, String specialties) {
 		setName(name);
@@ -28,12 +28,12 @@ public class Engineer {
 		return specialties;
 	}
 	
-	public void setAvailability(boolean available) {
-		this.available = available;
+	public void setAvailability(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 	
 	public boolean getAvailability() {
-		return available;
+		return isAvailable;
 	}
 	
 }
