@@ -14,6 +14,7 @@ public class JobOrder {
 	private String contactPerson;
 	private String contactNo;
 	private boolean isScheduled;
+	private boolean isValid;
 	private Calendar calendar = Calendar.getInstance();
 	
 	public JobOrder(String orderNo, String referenceNo, int jobYear, int jobMonth, int jobDay, 
@@ -27,7 +28,8 @@ public class JobOrder {
 		setAddress(address);
 		setContactPerson(contactPerson);
 		setContactNumber(contactNo);
-		isScheduled = false;
+		setIsScheduled();
+		checkValidity();
 	}
 	
 	// get/set methods
@@ -100,11 +102,26 @@ public class JobOrder {
 		return contactNo;
 	}
 
-	public void setIsScheduled(boolean isScheduled) {
-		this.isScheduled = isScheduled;
+	public void setIsScheduled() {
+		// ERROR CHECKING HERE
+		isScheduled = false;
 	}
 	
 	public boolean getIsScheduled() {
 		return isScheduled;
+	}
+	
+	public void checkValidity() {
+		if(orderNo.equals("") || referenceNo.equals("") || hospital.equals("") || address.equals("")
+				|| contactPerson.equals("") || contactNo.equals("")) {
+			isValid = false;
+		}
+		else { 
+			isValid = true;
+		}
+	}
+	
+	public boolean isValid() {
+		return isValid;
 	}
 }

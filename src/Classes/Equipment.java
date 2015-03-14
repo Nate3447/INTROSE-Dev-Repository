@@ -13,19 +13,21 @@ public class Equipment {
 	private Date calibrationDate;
 	private String borrowerName;
 	private boolean isAvailable;
+	private boolean isValid;
 	private Calendar calendar = Calendar.getInstance();
 	
 	public Equipment(String name, String idNumber, String location, int borrowYear, 
 			int borrowMonth, int borrowDay, int returnYear, int returnMonth, int returnDay,
 			int calibrationYear, int calibrationMonth, int calibrationDay, String borrowerName) {
-		setName(name);
-		setIDNumber(idNumber);
-		setLocation(location);
+		setName(name.trim());
+		setIDNumber(idNumber.trim());
+		setLocation(location.trim());
 		setBorrowDate(borrowYear, borrowMonth, borrowDay);
 		setReturnDate(returnYear, returnMonth, returnDay);
 		setCalibrationDate(calibrationYear, calibrationMonth, calibrationDay);
-		setBorrowerName(borrowerName);
+		setBorrowerName(borrowerName.trim());
 		isAvailable = true;
+		checkValidity();
 	}
 	
 	// get/set methods
@@ -98,5 +100,18 @@ public class Equipment {
 	
 	public boolean getAvailability() {
 		return isAvailable;
+	}
+	
+	public void checkValidity() {
+		if(name.equals("") || idNumber.equals("") || location.equals("") || borrowerName.equals("")) {
+			isValid = false;
+		}
+		else {
+			isValid = true;
+		}
+	}
+	
+	public boolean isValid() {
+		return isValid;
 	}
 }

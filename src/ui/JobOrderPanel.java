@@ -1,6 +1,9 @@
 package ui;
 
+import java.awt.Dimension;
+
 import javax.swing.*;
+
 import classes.JobOrder;
 
 public class JobOrderPanel extends JPanel {
@@ -33,6 +36,7 @@ public class JobOrderPanel extends JPanel {
 		jobDateLabel.setBounds(10, 50, 150, 40);
 		hospitalLabel.setBounds(10, 95, 150, 40);
 		this.setSize(340, 100);
+		this.setPreferredSize(new Dimension(340, 100));
 	}
 	
 }

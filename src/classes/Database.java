@@ -9,6 +9,7 @@ public class Database {
 	private ArrayList<JobOrder> unscheduledJobList;
 	private ArrayList<Engineer> availableEngineerList;
 	private ArrayList<Equipment> availableEquipmentList;
+	private ArrayList<JobOrder> jobsOnMonthList;
 	
 	public Database() {
 		setEngineerList();
@@ -102,5 +103,15 @@ public class Database {
 	
 	public ArrayList<Equipment> getAvailableEquipment() {
 		return availableEquipmentList;
+	}
+	
+	public void setJobsOnMonth(int month) {
+		jobsOnMonthList = new ArrayList<JobOrder>();
+		
+		
+	}
+	
+	public ArrayList<JobOrder> getJobsOnMonth() {
+		return jobsOnMonthList;
 	}
 }

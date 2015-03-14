@@ -1,6 +1,9 @@
 package ui;
 
+import java.awt.Dimension;
+
 import javax.swing.*;
+
 import classes.Equipment;
 
 public class EquipmentPanel extends JPanel {
@@ -45,5 +48,6 @@ public class EquipmentPanel extends JPanel {
 		calibrationDateLabel.setBounds(0, 0, 0, 0);
 		borrowerNameLabel.setBounds(0, 0, 0, 0);
 		this.setSize(340, 100);
+		this.setPreferredSize(new Dimension(340, 100));
 	}
 }

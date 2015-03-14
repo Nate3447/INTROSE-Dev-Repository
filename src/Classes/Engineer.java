@@ -4,10 +4,17 @@ public class Engineer {
 	private String name;
 	private String specialties;
 	private boolean isAvailable;
+	private boolean isValid;
+	
+	public Engineer(boolean isValid) {
+		this.isValid = isValid;
+	}
 	
 	public Engineer(String name, String specialties) {
-		setName(name);
-		setSpecialties(specialties);
+		setName(name.trim());
+		setSpecialties(specialties.trim());
+		setAvailability(true);
+		checkValidity();
 	}
 	
 	// get/set methods
@@ -36,4 +43,16 @@ public class Engineer {
 		return isAvailable;
 	}
 	
+	public void checkValidity() {
+		if(name.equals("") || specialties.equals("")) {
+			isValid = false;
+		}
+		else {
+			isValid = true;
+		}
+	}
+	
+	public boolean isValid() {
+		return isValid;
+	}
 }

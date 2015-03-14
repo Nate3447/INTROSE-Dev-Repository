@@ -1,6 +1,9 @@
 package ui;
 
+import java.awt.Dimension;
+
 import javax.swing.*;
+
 import classes.Engineer;
 
 public class EngineerPanel extends JPanel {
@@ -25,6 +28,6 @@ public class EngineerPanel extends JPanel {
 		nameLabel.setBounds(10, 5, 250, 40);
 		specialties.setBounds(10, 50, 250, 40);
 		this.setSize(340, 100);
-		
+		this.setPreferredSize(new Dimension(340, 100));
 	}
 }
