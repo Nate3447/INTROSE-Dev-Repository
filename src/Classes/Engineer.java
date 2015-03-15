@@ -3,7 +3,6 @@ package classes;
 public class Engineer {
 	private String name;
 	private String specialties;
-	private boolean isAvailable;
 	private boolean isValid;
 	
 	public Engineer() {
@@ -17,7 +16,6 @@ public class Engineer {
 	public Engineer(String name, String specialties) {
 		setName(name.trim());
 		setSpecialties(specialties.trim());
-		setAvailability(true);
 		checkValidity();
 	}
 	
@@ -37,14 +35,6 @@ public class Engineer {
 	
 	public String getSpecialties() {
 		return specialties;
-	}
-	
-	public void setAvailability(boolean isAvailable) {
-		this.isAvailable = isAvailable;
-	}
-	
-	public boolean getAvailability() {
-		return isAvailable;
 	}
 	
 	public void checkValidity() {

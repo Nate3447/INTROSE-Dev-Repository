@@ -29,7 +29,7 @@ public class UserInterface {
 	public Container pane;
 	public JPanel menuBar;
 	public JPanel listCardsPanel;
-	public JScrollPane availabilityListPanel;	
+	public JPanel availabilityListPanel;	
 	public JScrollPane viewEngineersPanel;
 	public JScrollPane viewJobOrdersPanel;
 	public JScrollPane viewEquipmentPanel;
@@ -520,116 +520,109 @@ public class UserInterface {
 	
 	// AVAILABILITY LISTS PANEL COMPONENTS
 
-	public JList unscheduledJobList, availableEngineerList, availableEquipmentList;
-	
+	public JScrollPane unscheduledJobScroller, availableEngineerScroller, availableEquipmentScroller;
+	public JButton unscheduledJobsButton, availableEngineersButton, availableEquipmentButton;
+
 	public void setAvailabilityListPanel() {
 		
-		JPanel listPanel;
-		JButton unscheduledJobsButton, availableEngineersButton, availableEquipmentButton;
-			
-		listPanel = new JPanel(null);
-
-		unscheduledJobList = new JList();
-		availableEngineerList = new JList();
-		availableEquipmentList = new JList();
+		JList unscheduledJobList, availableEngineerList, availableEquipmentList;
+		
+		availabilityListPanel = new JPanel(null);
+		
+		unscheduledJobList = new JList(database.getUnscheduledJobs().toArray());
+		unscheduledJobList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		unscheduledJobScroller = new JScrollPane(unscheduledJobList);
+		unscheduledJobScroller.setVisible(false);
+		availableEngineerList = new JList(database.getAvailableEngineers().toArray());
+		availableEngineerList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		availableEngineerScroller = new JScrollPane(availableEngineerList);
+		availableEngineerScroller.setVisible(false);
+		availableEquipmentList = new JList(database.getAvailableEquipment().toArray());
+		availableEquipmentList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		availableEquipmentScroller = new JScrollPane(availableEquipmentList);
+		availableEquipmentScroller.setVisible(false);
 		
 		unscheduledJobsButton = new JButton("Unscheduled Jobs");
+		availableEngineersButton = new JButton("Available Engineers");
+		availableEquipmentButton = new JButton("Available Equipment");
+		
+		
+		unscheduledJobsButton.setBounds(5, 5, 350, 30);
+		availableEngineersButton.setBounds(5, 35, 350, 30);
+		availableEquipmentButton.setBounds(5, 65, 350, 30);
+		
 		unscheduledJobsButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				refreshAvailabilityList();
-				if(unscheduledJobList.isVisible()) {
-					unscheduledJobList.setVisible(false);
+				if(unscheduledJobScroller.isVisible()) {
+					unscheduledJobScroller.setVisible(false);
+					availableEngineersButton.setLocation(5, 35);
+					availableEquipmentButton.setLocation(5, 65);
 				} else {
-					unscheduledJobList.setVisible(true);
+					unscheduledJobScroller.setVisible(true);
+					availableEngineersButton.setLocation(5, 645);
+					availableEquipmentButton.setLocation(5, 675);
+					if (availableEngineerScroller.isVisible()) {
+						availableEngineerScroller.setVisible(false);
+					}
+					if (availableEquipmentScroller.isVisible()) {
+						availableEquipmentScroller.setVisible(false);
+					}
 				}
 			}
 		});
-		unscheduledJobsButton.setHorizontalAlignment(SwingConstants.LEFT);
-		availableEngineersButton = new JButton("Available Engineers");
 		availableEngineersButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				refreshAvailabilityList();
-				if(availableEngineerList.isVisible()) {
-					availableEngineerList.setVisible(false);
+				if(availableEngineerScroller.isVisible()) {
+					availableEngineerScroller.setVisible(false);
+					availableEquipmentButton.setLocation(5, 65);
 				} else {
-					availableEngineerList.setVisible(true);
+					availableEngineerScroller.setVisible(true);
+					availableEngineersButton.setLocation(5, 35);
+					availableEquipmentButton.setLocation(5, 675);
+					if (unscheduledJobScroller.isVisible()) {
+						unscheduledJobScroller.setVisible(false);
+					}
+					if (availableEquipmentScroller.isVisible()) {
+						availableEquipmentScroller.setVisible(false);
+					}
 				}
 			}
 		});
-		availableEngineersButton.setHorizontalAlignment(SwingConstants.LEFT);
-		availableEquipmentButton = new JButton("Available Equipment");
 		availableEquipmentButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				refreshAvailabilityList();
-				if(availableEquipmentList.isVisible()) {
-					availableEquipmentList.setVisible(false);
+				if(availableEquipmentScroller.isVisible()) {
+					availableEquipmentScroller.setVisible(false);
 				} else {
-					availableEquipmentList.setVisible(true);
+					availableEquipmentScroller.setVisible(true);
+					availableEngineersButton.setLocation(5, 35);
+					availableEquipmentButton.setLocation(5, 65);
+					if (unscheduledJobScroller.isVisible()) {
+						unscheduledJobScroller.setVisible(false);
+					}
+					if (availableEngineerScroller.isVisible()) {
+						availableEngineerScroller.setVisible(false);
+					}
 				}
 			}
 		});
-		availableEquipmentButton.setHorizontalAlignment(SwingConstants.LEFT);
 
-		availabilityListPanel = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		unscheduledJobScroller.setBounds(5, 35, 350, 610);
+		availableEngineerScroller.setBounds(5, 65, 350, 610);
+		availableEquipmentScroller.setBounds(5, 95, 350, 610);
+		
 		availabilityListPanel.setBounds(640, 40, 360, 710);
 		
-		listPanel.add(unscheduledJobsButton);
-		listPanel.add(unscheduledJobList);
-		listPanel.add(availableEngineersButton);
-		listPanel.add(availableEngineerList);
-		listPanel.add(availableEquipmentButton);
-		listPanel.add(availableEquipmentList);
-		
-		refreshLists(listPanel, unscheduledJobsButton, availableEngineersButton, availableEquipmentButton, 
-				unscheduledJobList, availableEngineerList, availableEquipmentList);
+		availabilityListPanel.add(unscheduledJobsButton);
+		availabilityListPanel.add(unscheduledJobScroller);
+		availabilityListPanel.add(availableEngineersButton);
+		availabilityListPanel.add(availableEngineerScroller);
+		availabilityListPanel.add(availableEquipmentButton);
+		availabilityListPanel.add(availableEquipmentScroller);
 		
 	}
-
-	public void refreshAvailabilityList() {
-		
-	}
-
-	public void refreshLists(JPanel listPanel, JButton unscheduledJobsButton, JButton availableEngineersButton, JButton availableEquipmentButton, 
-			JList unscheduledJobList, JList availableEngineerList, JList availableEquipmentList) {
-		unscheduledJobsButton.setBounds(5, 0, 200, 30);
-		availableEngineersButton.setBounds(5, unscheduledJobsButton.getHeight() + unscheduledJobList.getHeight(), 200, 30);
-		availableEquipmentButton.setBounds(5, unscheduledJobsButton.getHeight() + unscheduledJobList.getHeight() 
-				+ availableEngineersButton.getHeight() + availableEngineerList.getHeight(), 200, 30);
-		listPanel.setBounds(5, 5, 350, unscheduledJobsButton.getHeight() + unscheduledJobList.getHeight() 
-				+ availableEngineersButton.getHeight() + availableEngineerList.getHeight() 
-				+ availableEquipmentButton.getHeight() + availableEquipmentList.getHeight());
-	}
-	
-	/*
-	
-	public ArrayList<JobOrder> getUnscheduledJobOrders() {
-		ArrayList<JobOrder> jobOrders;
-		
-		
-		
-		return jobOrders;
-	}
-	
-	public ArrayList<Engineer> getAvailableEngineers() {
-		ArrayList<Engineer> engineers;
-		
-		
-		
-		return engineers;
-	}
-	
-	public ArrayList<Equipment> getAvailableEquipment() {
-		ArrayList<Equipment> equipment;
-		
-		
-		
-		return equipment;
-	}
-	
-	*/
 	
 	// VIEW ENGINEERS PANEL COMPONENTS
 	

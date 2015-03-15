@@ -13,7 +13,6 @@ public class JobOrder {
 	private String address;
 	private String contactPerson;
 	private String contactNo;
-	private boolean isScheduled;
 	private boolean isValid;
 	private Calendar calendar = Calendar.getInstance();
 	
@@ -32,7 +31,6 @@ public class JobOrder {
 		setAddress(address);
 		setContactPerson(contactPerson);
 		setContactNumber(contactNo);
-		setIsScheduled();
 		checkValidity();
 	}
 	
@@ -112,15 +110,6 @@ public class JobOrder {
 	
 	public String getContactNo() {
 		return contactNo;
-	}
-
-	public void setIsScheduled() {
-		// ERROR CHECKING HERE
-		isScheduled = false;
-	}
-	
-	public boolean getIsScheduled() {
-		return isScheduled;
 	}
 	
 	public void checkValidity() {

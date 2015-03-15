@@ -1,8 +1,10 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import classes.Equipment;
 
@@ -23,6 +25,7 @@ public class EquipmentPanel extends JPanel {
 	public EquipmentPanel(Equipment equipment) {
 		
 		this.setLayout(null);
+		this.setBorder(new LineBorder (Color.WHITE, 2));
 		
 		nameLabel = new JLabel("Equipment: " + equipment.getName());
 		idNumberLabel = new JLabel("ID No.: " + equipment.getIDNumber());
@@ -47,7 +50,7 @@ public class EquipmentPanel extends JPanel {
 		returnDateLabel.setBounds(200, 80, 150, 20);
 		calibrationDateLabel.setBounds(10, 105, 150, 20);
 		borrowerNameLabel.setBounds(10, 55, 250, 20);
-		this.setSize(340, 150);
-		this.setPreferredSize(new Dimension(340, 150));
+		this.setSize(340, 160);
+		this.setPreferredSize(new Dimension(340, 160));
 	}
 }

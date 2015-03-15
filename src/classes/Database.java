@@ -253,31 +253,19 @@ public class Database {
 	public void setUnscheduledJobs() {
 		unscheduledJobList = new ArrayList<JobOrder>();
 		
-		for(int i = 0; i < jobOrderList.size(); i++) {
-			if(!(jobOrderList.get(i).getIsScheduled())) {
-				unscheduledJobList.add(jobOrderList.get(i));
-			}
-		}
+		
 	}
 	
 	public void setAvailableEngineers() {
 		availableEngineerList = new ArrayList<Engineer>();
 		
-		for(int i = 0; i < engineerList.size(); i++) {
-			if(engineerList.get(i).getAvailability()) {
-				availableEngineerList.add(engineerList.get(i));
-			}
-		}
+		
 	}
 	
 	public void setAvailableEquipment() {
 		availableEquipmentList = new ArrayList<Equipment>();
 		
-		for(int i = 0; i < equipmentList.size(); i++) {
-			if(equipmentList.get(i).getAvailability()) {
-				availableEquipmentList.add(equipmentList.get(i));
-			}
-		}
+		
 	}
 	
 	public ArrayList<JobOrder> getUnscheduledJobs() {

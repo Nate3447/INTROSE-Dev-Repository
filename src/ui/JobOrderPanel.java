@@ -1,8 +1,10 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import classes.JobOrder;
 
@@ -20,6 +22,7 @@ public class JobOrderPanel extends JPanel {
 	public JobOrderPanel(JobOrder jobOrder) {
 		
 		this.setLayout(null);
+		this.setBorder(new LineBorder(Color.WHITE, 2));
 		
 		orderNoLabel = new JLabel("Order No.: " + jobOrder.getOrderNo());
 		referenceNoLabel = new JLabel("Reference No.: " + jobOrder.getReferenceNo());
@@ -37,6 +40,6 @@ public class JobOrderPanel extends JPanel {
 		hospitalLabel.setBounds(10, 55, 250, 20);
 		this.setSize(340, 100);
 		this.setPreferredSize(new Dimension(340, 100));
+		
 	}
-	
 }
