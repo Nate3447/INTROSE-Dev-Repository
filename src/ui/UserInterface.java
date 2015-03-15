@@ -628,6 +628,7 @@ public class UserInterface {
 	
 	public void setViewEngineersPanel() {
 		JPanel listPanel = new JPanel(new GridLayout(0, 1));
+		database.setEngineerList();
 		ArrayList<Engineer> engineers = getEngineers();
 		EngineerPanel engineerPanel = new EngineerPanel();
 		int i;
@@ -652,6 +653,7 @@ public class UserInterface {
 	
 	public void setViewEquipmentPanel() {
 		JPanel listPanel = new JPanel(new GridLayout(0, 1));
+		database.setEquipmentList();
 		ArrayList<Equipment> equipment = getEquipment();
 		EquipmentPanel equipmentPanel = new EquipmentPanel();
 		int i;
@@ -676,6 +678,7 @@ public class UserInterface {
 	
 	public void setViewJobOrdersPanel() {
 		JPanel listPanel = new JPanel(new GridLayout(0, 1));
+		database.setJobOrderList();
 		ArrayList<JobOrder> jobOrders = getJobOrders();
 		JobOrderPanel jobOrderPanel = new JobOrderPanel();
 		int i;

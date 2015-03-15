@@ -45,7 +45,6 @@ public class Database {
     }
 	
 	public void addEngineer(Engineer engineer) {
-		engineerList.add(engineer);
 		try {
             ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
             connection = connectionFactory.getConnection();
@@ -56,13 +55,12 @@ public class Database {
 
             preparedStatement.executeUpdate();
             closeAll();
-        } catch(SQLException e){
+        } catch(SQLException e) {
             e.printStackTrace();
         }
 	}
 	
 	public void addEquipment(Equipment equipment) {
-		equipmentList.add(equipment);
 		try {
             ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
             connection = connectionFactory.getConnection();
@@ -86,7 +84,6 @@ public class Database {
 	}
 	
 	public void addJobOrder(JobOrder jobOrder) {
-		jobOrderList.add(jobOrder);
 		try {
             ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
             connection = connectionFactory.getConnection();
@@ -259,7 +256,7 @@ public class Database {
 	public void setAvailableEngineers() {
 		availableEngineerList = new ArrayList<Engineer>();
 		
-		
+       
 	}
 	
 	public void setAvailableEquipment() {

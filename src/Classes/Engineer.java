@@ -1,6 +1,7 @@
 package classes;
 
 public class Engineer {
+	private int id;
 	private String name;
 	private String specialties;
 	private boolean isValid;
@@ -21,6 +22,14 @@ public class Engineer {
 	
 	// get/set methods
 
+	public void setID(int id) {
+		this.id = id;
+	}
+	
+	public int returnID() {
+		return id;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
