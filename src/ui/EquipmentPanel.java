@@ -40,14 +40,14 @@ public class EquipmentPanel extends JPanel {
 		this.add(calibrationDateLabel);
 		this.add(borrowerNameLabel);
 		
-		nameLabel.setBounds(0, 0, 0, 0);
-		idNumberLabel.setBounds(0, 0, 0, 0);
-		locationLabel.setBounds(0, 0, 0, 0);
-		borrowDateLabel.setBounds(0, 0, 0, 0);
-		returnDateLabel.setBounds(0, 0, 0, 0);
-		calibrationDateLabel.setBounds(0, 0, 0, 0);
-		borrowerNameLabel.setBounds(0, 0, 0, 0);
-		this.setSize(340, 100);
-		this.setPreferredSize(new Dimension(340, 100));
+		nameLabel.setBounds(10, 5, 240, 20);
+		idNumberLabel.setBounds(240, 5, 250, 20);
+		locationLabel.setBounds(10, 30, 250, 20);
+		borrowDateLabel.setBounds(10, 80, 150, 20);
+		returnDateLabel.setBounds(200, 80, 150, 20);
+		calibrationDateLabel.setBounds(10, 105, 150, 20);
+		borrowerNameLabel.setBounds(10, 55, 250, 20);
+		this.setSize(340, 150);
+		this.setPreferredSize(new Dimension(340, 150));
 	}
 }

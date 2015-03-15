@@ -16,6 +16,10 @@ public class Equipment {
 	private boolean isValid;
 	private Calendar calendar = Calendar.getInstance();
 	
+	public Equipment() {
+		
+	}
+	
 	public Equipment(String name, String idNumber, String location, int borrowYear, 
 			int borrowMonth, int borrowDay, int returnYear, int returnMonth, int returnDay,
 			int calibrationYear, int calibrationMonth, int calibrationDay, String borrowerName) {
@@ -64,6 +68,10 @@ public class Equipment {
 		return borrowerName;
 	}
 	
+	public void setBorrowDate(Date borrowDate) {
+		this.borrowDate = borrowDate;
+	}
+	
 	public void setBorrowDate(int year, int month, int date) {
 		calendar.clear();
 		calendar.set(year, month, date);
@@ -74,6 +82,10 @@ public class Equipment {
 		return borrowDate;
 	}
 	
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+	
 	public void setReturnDate(int year, int month, int date) {
 		calendar.clear();
 		calendar.set(year, month, date);
@@ -82,6 +94,10 @@ public class Equipment {
 	
 	public Date getReturnDate() {
 		return returnDate;
+	}
+	
+	public void setCalibrationDate(Date calibrationDate) {
+		this.calibrationDate = calibrationDate;
 	}
 	
 	public void setCalibrationDate(int year, int month, int date) {

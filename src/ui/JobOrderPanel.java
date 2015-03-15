@@ -31,10 +31,10 @@ public class JobOrderPanel extends JPanel {
 		this.add(jobDateLabel);
 		this.add(hospitalLabel);
 		
-		orderNoLabel.setBounds(10, 5, 150, 40);
-		referenceNoLabel.setBounds(160, 5, 150, 40);
-		jobDateLabel.setBounds(10, 50, 150, 40);
-		hospitalLabel.setBounds(10, 95, 150, 40);
+		orderNoLabel.setBounds(10, 5, 150, 20);
+		referenceNoLabel.setBounds(160, 5, 150, 20);
+		jobDateLabel.setBounds(10, 30, 150, 20);
+		hospitalLabel.setBounds(10, 55, 250, 20);
 		this.setSize(340, 100);
 		this.setPreferredSize(new Dimension(340, 100));
 	}

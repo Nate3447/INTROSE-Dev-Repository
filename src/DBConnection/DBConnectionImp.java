@@ -14,7 +14,7 @@ public class DBConnectionImp extends ConnectionFactory {
    	private String _driver = "com.mysql.jdbc.Driver";
    	private String _password = "";
   
-   	private String _url = "jdbc:mysql://127.0.0.1:3306/mydb";
+   	private String _url = "jdbc:mysql://127.0.0.1:3306/introsedb";
    	private String _username="root";
 
 

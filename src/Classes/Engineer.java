@@ -6,6 +6,10 @@ public class Engineer {
 	private boolean isAvailable;
 	private boolean isValid;
 	
+	public Engineer() {
+		
+	}
+	
 	public Engineer(boolean isValid) {
 		this.isValid = isValid;
 	}

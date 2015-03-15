@@ -25,9 +25,9 @@ public class EngineerPanel extends JPanel {
 		this.add(nameLabel);
 		this.add(specialties);
 		
-		nameLabel.setBounds(10, 5, 250, 40);
-		specialties.setBounds(10, 50, 250, 40);
-		this.setSize(340, 100);
-		this.setPreferredSize(new Dimension(340, 100));
+		nameLabel.setBounds(10, 5, 250, 20);
+		specialties.setBounds(10, 30, 250, 20);
+		this.setSize(340, 50);
+		this.setPreferredSize(new Dimension(340, 50));
 	}
 }

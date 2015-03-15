@@ -29,6 +29,4 @@ public class TableRenderer extends DefaultTableCellRenderer {
     	setForeground(Color.black);
     	return this;  
     }
-    
-    
 }

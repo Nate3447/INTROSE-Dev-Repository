@@ -5,6 +5,7 @@ import classes.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.*;
@@ -50,6 +51,8 @@ public class UserInterface {
 	public JScrollPane calendarTableScroll;
 	public JTable calendarTable;
 	public DefaultTableModel modelCalendarTable;
+	
+	private Calendar calendar = Calendar.getInstance();
 	
 	
 	public UserInterface(Database database) {
@@ -640,7 +643,6 @@ public class UserInterface {
 			engineerPanel = new EngineerPanel(engineers.get(i));
 			listPanel.add(engineerPanel);
 		}
-		
 		viewEngineersPanel = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		viewEngineersPanel.setBounds(640, 40, 360, 710);
 	}
@@ -665,7 +667,6 @@ public class UserInterface {
 			equipmentPanel = new EquipmentPanel(equipment.get(i));
 			listPanel.add(equipmentPanel);
 		}
-		
 		viewEquipmentPanel = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		viewEquipmentPanel.setBounds(640, 40, 360, 710);
 	}
@@ -842,10 +843,14 @@ public class UserInterface {
 		
 		ArrayList<Integer> jobDays = new ArrayList<Integer>();
 		if(!(jobsOnMonth.isEmpty())) {
-			jobDays.add(jobsOnMonth.get(0).getJobDate().getDay());
+			calendar.clear();
+			calendar.setTime(jobsOnMonth.get(0).getJobDate());
+			jobDays.add(calendar.get(Calendar.DAY_OF_MONTH));
 			for(i = 1; i < jobsOnMonth.size(); i++) {
-				if(!(jobDays.contains(jobsOnMonth.get(i).getJobDate().getDay()))) {
-					jobDays.add(jobsOnMonth.get(i).getJobDate().getDay());
+				calendar.clear();
+				calendar.setTime(jobsOnMonth.get(i).getJobDate());
+				if(!(jobDays.contains(calendar.get(Calendar.DAY_OF_MONTH)))) {
+					jobDays.add(calendar.get(Calendar.DAY_OF_MONTH));
 				}
 			}
 		}

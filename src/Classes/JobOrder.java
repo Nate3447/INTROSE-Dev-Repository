@@ -17,6 +17,10 @@ public class JobOrder {
 	private boolean isValid;
 	private Calendar calendar = Calendar.getInstance();
 	
+	public JobOrder() {
+		
+	}
+	
 	public JobOrder(String orderNo, String referenceNo, int jobYear, int jobMonth, int jobDay, 
 			int completionYear, int completionMonth, int completionDay, String hospital, 
 			String address, String contactPerson, String contactNo) {
@@ -49,6 +53,10 @@ public class JobOrder {
 	public String getReferenceNo() {
 		return referenceNo;
 	}
+
+	public void setJobDate(Date jobDate) {
+		this.jobDate = jobDate;
+	}
 	
 	public void setJobDate(int year, int month, int date) {
 		calendar.clear();
@@ -58,6 +66,10 @@ public class JobOrder {
 	
 	public Date getJobDate() {
 		return jobDate;
+	}
+	
+	public void setCompletionDate(Date completionDate) {
+		this.completionDate = completionDate;
 	}
 	
 	public void setCompletionDate(int year, int month, int date) {
