@@ -1,85 +1,63 @@
 package classes;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 
 public class JobOrder {
-	private String orderNo;
-	private String referenceNo;
-	private Date jobDate;
-	private Date completionDate;
+	private int jobOrderId;
+	private int jobOrderNo;
+	private int referenceNo;
 	private String hospital;
 	private String address;
 	private String contactPerson;
-	private String contactNo;
+	private int contactNo;
+	private int status;
+	//status = 0 is not completed
+	//status = 1 is completed
+	
+	private int assignSchedId;
 	private boolean isValid;
 	private Calendar calendar = Calendar.getInstance();
+	
+	public JobOrder(int jobOrderNo, int referenceNo, String hospital, String address, String contactPerson, int contactNo){
+		setJobOrderNo(jobOrderNo);
+		setReferenceNo(referenceNo);
+		setHospital(hospital);
+		setAddress(address);
+		setContactPerson(contactPerson);
+		setContactNo(contactNo);
+	}
 	
 	public JobOrder() {
 		
 	}
-	
-	public JobOrder(String orderNo, String referenceNo, int jobYear, int jobMonth, int jobDay, 
-			int completionYear, int completionMonth, int completionDay, String hospital, 
-			String address, String contactPerson, String contactNo) {
-		setOrderNo(orderNo);
-		setReferenceNo(referenceNo);
-		setJobDate(jobYear, jobMonth, jobDay);
-		setCompletionDate(completionYear, completionMonth, completionDay);
-		setHospital(hospital);
-		setAddress(address);
-		setContactPerson(contactPerson);
-		setContactNumber(contactNo);
-		checkValidity();
+	//GET SET JobOrderId
+	public void setJobOrderId(int jobOrderId) {
+		this.jobOrderId = jobOrderId;
 	}
 	
-	// get/set methods
-	
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
+	public int getJobOrderId() {
+		return jobOrderId;
+	}
+	//GET SET JobOrderNo
+	public void setJobOrderNo(int jobOrderNo) {
+		this.jobOrderNo = jobOrderNo;
 	}
 	
-	public String getOrderNo() {
-		return orderNo;
+	public int getJobOrderNo() {
+		return jobOrderNo;
 	}
-	
-	public void setReferenceNo(String referenceNo) {
+	//GET SET ReferenceNo
+	public void setReferenceNo(int referenceNo) {
 		this.referenceNo = referenceNo;
 	}
 	
-	public String getReferenceNo() {
+	public int getReferenceNo() {
 		return referenceNo;
 	}
-
-	public void setJobDate(Date jobDate) {
-		this.jobDate = jobDate;
-	}
-	
-	public void setJobDate(int year, int month, int date) {
-		calendar.clear();
-		calendar.set(year, month, date);
-		jobDate = calendar.getTime();
-	}
-	
-	public Date getJobDate() {
-		return jobDate;
-	}
-	
-	public void setCompletionDate(Date completionDate) {
-		this.completionDate = completionDate;
-	}
-	
-	public void setCompletionDate(int year, int month, int date) {
-		calendar.clear();
-		calendar.set(year, month, date);
-		completionDate = calendar.getTime();
-	}
-	
-	public Date getCompletionDate() {
-		return completionDate;
-	}
-	
+	//GET SET Hospital
 	public void setHospital(String hospital) {
 		this.hospital = hospital;
 	}
@@ -87,7 +65,7 @@ public class JobOrder {
 	public String getHospital() {
 		return hospital;
 	}
-	
+	//GET SET Address
 	public void setAddress(String address) {
 		this.address = address;
 	}
@@ -95,34 +73,44 @@ public class JobOrder {
 	public String getAddress() {
 		return address;
 	}
-	
-	public void setContactPerson(String contactPerson) {
+	//GET SET ContactPerson
+	public void setContactPerson(String contactPerson){
 		this.contactPerson = contactPerson;
 	}
-	
-	public String getContactPerson() {
+
+	public String getContactPerson(){
 		return contactPerson;
 	}
-	
-	public void setContactNumber(String contactNo) {
+	//GET SET ContactNo
+	public void setContactNo(int contactNo){
 		this.contactNo = contactNo;
 	}
-	
-	public String getContactNo() {
+
+	public int getContactNo(){
 		return contactNo;
 	}
+	//GET SET Status
+	public void setStatus(int status){
+		this.status = status;
+	}
+
+	public int getStatus(){
+		return status;
+	}
+	//GET SET AssignSchedId
+	public void setAssignSchedId(int assignSchedId){
+		this.assignSchedId = assignSchedId;
+	}
+
+	public int getAssignSchedId(){
+		return assignSchedId;
+	}
 	
-	public void checkValidity() {
-		if(orderNo.equals("") || referenceNo.equals("") || hospital.equals("") || address.equals("")
-				|| contactPerson.equals("") || contactNo.equals("")) {
-			isValid = false;
-		}
-		else { 
+	public void checkValidity() { 
 			isValid = true;
-		}
 	}
 	
 	public boolean isValid() {
-		return isValid;
+		return true;
 	}
 }

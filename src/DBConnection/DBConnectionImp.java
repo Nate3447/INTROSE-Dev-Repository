@@ -1,15 +1,6 @@
 package DBConnection;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Matthew Emanuel Lu
- */
 import java.sql.*;
+
 public class DBConnectionImp extends ConnectionFactory {
 	
    	private String _driver = "com.mysql.jdbc.Driver";

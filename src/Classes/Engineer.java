@@ -1,9 +1,12 @@
 package classes;
 
+import java.util.ArrayList;
+
 public class Engineer {
-	private int id;
+	private int engineerId;
 	private String name;
 	private String specialties;
+	private int assignSchedId;
 	private boolean isValid;
 	
 	public Engineer() {
@@ -19,17 +22,15 @@ public class Engineer {
 		setSpecialties(specialties.trim());
 		checkValidity();
 	}
-	
-	// get/set methods
-
-	public void setID(int id) {
-		this.id = id;
+	//GET SET EngineerId
+	public void setEngineerId(int engineerId) {
+		this.engineerId = engineerId;
 	}
 	
-	public int returnID() {
-		return id;
+	public int getEngineerId() {
+		return engineerId;
 	}
-	
+	//GET SET Name
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -37,13 +38,21 @@ public class Engineer {
 	public String getName() {
 		return name;
 	}
-	
+	//GET SET Specialties
 	public void setSpecialties(String specialties) {
 		this.specialties = specialties;
 	}
 	
 	public String getSpecialties() {
 		return specialties;
+	}
+	//GET SET AssignSchedId
+	public void setAssignSchedId(int assignSchedId){
+		this.assignSchedId = assignSchedId;
+	}
+
+	public int getAssignSchedId(){
+		return assignSchedId;
 	}
 	
 	public void checkValidity() {

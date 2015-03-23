@@ -1,14 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Matthew Emanuel lu
- */
-
-//sets up connection and connect java to sql
 package DBConnection;
 import java.sql.*;
 import java.util.logging.Level;

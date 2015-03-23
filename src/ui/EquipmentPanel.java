@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -10,13 +11,12 @@ import classes.Equipment;
 
 public class EquipmentPanel extends JPanel {
 	
+	private String type;
+	
 	public JLabel nameLabel;
-	public JLabel idNumberLabel;
-	public JLabel locationLabel;
-	public JLabel borrowDateLabel;
-	public JLabel returnDateLabel;
+	public JLabel typeLabel;
 	public JLabel calibrationDateLabel;
-	public JLabel borrowerNameLabel;
+	public JLabel serialNoLabel;
 	
 	public EquipmentPanel() {
 		nameLabel = new JLabel();
@@ -28,29 +28,25 @@ public class EquipmentPanel extends JPanel {
 		this.setBorder(new LineBorder (Color.WHITE, 2));
 		
 		nameLabel = new JLabel("Equipment: " + equipment.getName());
-		idNumberLabel = new JLabel("ID No.: " + equipment.getIDNumber());
-		locationLabel = new JLabel("Location: " + equipment.getLocation());
-		borrowDateLabel = new JLabel("Borrow Date: " + equipment.getBorrowDate());
-		returnDateLabel = new JLabel("Return Date: " + equipment.getReturnDate());
+		if(equipment.getType() == 1){
+			type = "formula";
+		}else{
+			type = "type";
+		}
+		typeLabel = new JLabel("Type: " + type);
 		calibrationDateLabel = new JLabel("Calibration Date: " + equipment.getCalibrationDate());
-		borrowerNameLabel = new JLabel("Borrower Name: " + equipment.getBorrowerName());
+		serialNoLabel = new JLabel("Serial Number: " + equipment.getSerialNo());
 		
 		this.add(nameLabel);
-		this.add(idNumberLabel);
-		this.add(locationLabel);
-		this.add(borrowDateLabel);
-		this.add(returnDateLabel);
+		this.add(typeLabel);
 		this.add(calibrationDateLabel);
-		this.add(borrowerNameLabel);
+		this.add(serialNoLabel);
 		
 		nameLabel.setBounds(10, 5, 240, 20);
-		idNumberLabel.setBounds(240, 5, 250, 20);
-		locationLabel.setBounds(10, 30, 250, 20);
-		borrowDateLabel.setBounds(10, 80, 150, 20);
-		returnDateLabel.setBounds(200, 80, 150, 20);
-		calibrationDateLabel.setBounds(10, 105, 150, 20);
-		borrowerNameLabel.setBounds(10, 55, 250, 20);
-		this.setSize(340, 160);
-		this.setPreferredSize(new Dimension(340, 160));
+		typeLabel.setBounds(10, 25, 150, 20);
+		calibrationDateLabel.setBounds(10, 45, 150, 20);
+		serialNoLabel.setBounds(10, 65, 250, 20);
+		this.setSize(340, 90);
+		this.setPreferredSize(new Dimension(340, 90));
 	}
 }
