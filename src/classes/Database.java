@@ -303,7 +303,7 @@ public class Database {
                 jobOrderList.add(jobOrder);
             }
             closeAll();
-        }catch(SQLException e){
+        } catch(SQLException e){
             e.printStackTrace();
         }
 		return jobOrderList;

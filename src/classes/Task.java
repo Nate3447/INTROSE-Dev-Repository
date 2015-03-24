@@ -32,7 +32,7 @@ public class Task {
 		return itemQuantity;
 	}
 	//GET SET ServiceType
-	public void setServiceType( int serviceType){
+	public void setServiceType(int serviceType){
 		this.serviceType = serviceType;
 	}
 	

@@ -33,6 +33,7 @@ public class JobOrder {
 	public JobOrder() {
 		
 	}
+	
 	//GET SET JobOrderId
 	public void setJobOrderId(int jobOrderId) {
 		this.jobOrderId = jobOrderId;
@@ -41,6 +42,7 @@ public class JobOrder {
 	public int getJobOrderId() {
 		return jobOrderId;
 	}
+	
 	//GET SET JobOrderNo
 	public void setJobOrderNo(int jobOrderNo) {
 		this.jobOrderNo = jobOrderNo;
@@ -49,6 +51,7 @@ public class JobOrder {
 	public int getJobOrderNo() {
 		return jobOrderNo;
 	}
+	
 	//GET SET ReferenceNo
 	public void setReferenceNo(int referenceNo) {
 		this.referenceNo = referenceNo;
@@ -57,6 +60,7 @@ public class JobOrder {
 	public int getReferenceNo() {
 		return referenceNo;
 	}
+	
 	//GET SET Hospital
 	public void setHospital(String hospital) {
 		this.hospital = hospital;
@@ -65,6 +69,7 @@ public class JobOrder {
 	public String getHospital() {
 		return hospital;
 	}
+	
 	//GET SET Address
 	public void setAddress(String address) {
 		this.address = address;
@@ -73,6 +78,7 @@ public class JobOrder {
 	public String getAddress() {
 		return address;
 	}
+	
 	//GET SET ContactPerson
 	public void setContactPerson(String contactPerson){
 		this.contactPerson = contactPerson;
@@ -97,6 +103,7 @@ public class JobOrder {
 	public int getStatus(){
 		return status;
 	}
+	
 	//GET SET AssignSchedId
 	public void setAssignSchedId(int assignSchedId){
 		this.assignSchedId = assignSchedId;

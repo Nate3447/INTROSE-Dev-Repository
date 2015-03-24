@@ -24,6 +24,8 @@ public class UserInterface {
 	public final static String ADD_ENGINEER = "Add Engineer";
 	public final static String ADD_EQUIPMENT = "Add Equipment";
 	public final static String ADD_JOB = "Add Job Order";
+	public final static String JOB_INFO = "Job Order Info";
+	public final static String ADD_TASK = "Add Task";
 
 	public JFrame interfaceFrame;
 	public Container pane;
@@ -37,6 +39,7 @@ public class UserInterface {
 	public JPanel addEngineerPanel;
 	public JPanel addEquipmentPanel;
 	public JPanel addJobOrderPanel;
+	public JPanel addTaskPanel;
 	
 	// calendarPanel Components
 
@@ -101,6 +104,8 @@ public class UserInterface {
 		listCardsPanel.add(addEquipmentPanel, ADD_EQUIPMENT);
 		listCardsPanel.add(viewJobOrdersPanel, JOB_ORDERS);
 		listCardsPanel.add(addJobOrderPanel, ADD_JOB);
+		listCardsPanel.add(jobInfoPanel, JOB_INFO);
+		listCardsPanel.add(addTaskPanel, ADD_TASK);
 		listCardsPanel.setBounds(640, 40, 360, 710);
 		
 	}
@@ -304,6 +309,9 @@ public class UserInterface {
 						addressInput.setText("");
 						contactInput.setText("");
 						contactNoInput.setText("");
+						setJobInfoPanel(newJob);
+						CardLayout c = (CardLayout)(listCardsPanel.getLayout());
+						c.show(listCardsPanel, JOB_INFO);
 					}
 					else {
 						jobStatusLabel.setText("Add Failed. Empty Fields.");
@@ -358,7 +366,68 @@ public class UserInterface {
 		addJobOrderPanel.add(addButton);
 		addJobOrderPanel.add(cancelButton);
 	}
-
+	
+	public JButton addTaskButton, cancelTaskButton;
+	public JTextField taskQuantityInput, taskSerialInput, taskAssetCodeInput, taskLocationInput;
+	
+	public void setAddTaskPanel(JobOrder jobOrder) {
+		JLabel itemQuantityLabel = new JLabel();
+		JLabel serviceTypeLabel = new JLabel();
+		JLabel itemTypeLabel = new JLabel();
+		JLabel serialNoLabel = new JLabel();
+		JLabel assetCodeLabel = new JLabel();
+		JLabel locationLabel = new JLabel();
+		taskQuantityInput = new JTextField();
+		String comboBoxItems[] = { "Preventive Maintenance", "Maintenance", "Repair", "Calibration" };
+		JComboBox serviceTypeInput = new JComboBox(comboBoxItems);
+		JComboBox availableEngineersInput = new JComboBox();
+		JComboBox availableEquipmentInput = new JComboBox();
+		
+		taskSerialInput = new JTextField();
+		taskAssetCodeInput = new JTextField();
+		taskLocationInput = new JTextField();
+		addTaskButton = new JButton("Add");
+		cancelTaskButton = new JButton("Cancel");
+		addTaskPanel = new JPanel(null);
+		
+		itemQuantityLabel.setBounds(0, 0, 0, 0);
+		serviceTypeLabel.setBounds(0, 0, 0, 0);
+		itemTypeLabel.setBounds(0, 0, 0, 0);
+		serialNoLabel.setBounds(0, 0, 0, 0);
+		assetCodeLabel.setBounds(0, 0, 0, 0);
+		locationLabel.setBounds(0, 0, 0, 0);
+		taskQuantityInput.setBounds(0, 0, 0, 0);
+		serviceTypeInput.setBounds(0, 0, 0, 0);
+		availableEngineersInput.setBounds(0, 0, 0, 0);
+		availableEquipmentInput.setBounds(0, 0, 0, 0);
+		
+		taskSerialInput.setBounds(0, 0, 0, 0);
+		taskAssetCodeInput.setBounds(0, 0, 0, 0);
+		taskLocationInput.setBounds(0, 0, 0, 0);
+		addTaskButton.setBounds(0, 0, 0, 0);
+		cancelTaskButton.setBounds(0, 0, 0, 0);
+		addTaskPanel.setBounds(0, 0, 0, 0);
+		
+		addTaskPanel.add(itemQuantityLabel);
+		addTaskPanel.add(serviceTypeLabel);
+		addTaskPanel.add(itemTypeLabel);
+		addTaskPanel.add(taskSerialInput);
+		addTaskPanel.add(taskAssetCodeInput);
+		addTaskPanel.add(taskLocationInput);
+		addTaskPanel.add(taskQuantityInput);
+		addTaskPanel.add(serviceTypeInput);
+		addTaskPanel.add(availableEngineersInput);
+		addTaskPanel.add(availableEquipmentInput);
+		
+		addTaskPanel.add(taskSerialInput);
+		addTaskPanel.add(taskAssetCodeInput);
+		addTaskPanel.add(taskLocationInput);
+		addTaskPanel.add(addTaskButton);
+		addTaskPanel.add(cancelTaskButton);
+	}
+	
+	public JButton addTasksButton;
+	
 	public void setJobInfoPanel(JobOrder jobOrder) {
 		
 		JLabel jobOrderNoLabel = new JLabel("Order No.: " + jobOrder.getJobOrderNo());
@@ -367,20 +436,19 @@ public class UserInterface {
 		JLabel addressLabel = new JLabel("Address: " + jobOrder.getAddress());
 		JLabel contactLabel = new JLabel("Contact Person: " + jobOrder.getContactPerson());
 		JLabel contactNoLabel = new JLabel("Contact No.: " + jobOrder.getContactNo());
-		JList assignedEngineers = new JList();
-		JList assignedEquipment = new JList();
+		JList taskList = new JList();
 		jobInfoPanel = new JPanel(null);
-		JButton jobEditButton = new JButton("Edit");
+		addTasksButton = new JButton("Add Tasks");
 		
-		jobOrderNoLabel.setBounds(30, 20, 250, 30);
-		referenceNoLabel.setBounds(320, 20, 250, 30);
-		hospitalLabel.setBounds(30, 60, 400, 30);
-		addressLabel.setBounds(30, 100, 400, 30);
-		contactLabel.setBounds(30, 140, 250, 30);
-		contactNoLabel.setBounds(320, 140, 250, 30);
-		assignedEngineers.setBounds(30, 270, 260, 470);
-		assignedEquipment.setBounds(310, 270, 260, 470);
-		jobInfoPanel.setBounds(20, 0, 600, 750);
+		jobOrderNoLabel.setBounds(20, 20, 300, 30);
+		referenceNoLabel.setBounds(20, 50, 300, 30);
+		hospitalLabel.setBounds(20, 80, 300, 30);
+		addressLabel.setBounds(30, 110, 300, 30);
+		contactLabel.setBounds(30, 140, 300, 30);
+		contactNoLabel.setBounds(30, 170, 300, 30);
+		taskList.setBounds(0, 0, 0, 0);
+		addTasksButton.setBounds(0, 0, 0, 0);
+		jobInfoPanel.setBounds(640, 40, 360, 710);
 		
 		jobInfoPanel.add(jobOrderNoLabel);
 		jobInfoPanel.add(referenceNoLabel);
@@ -388,8 +456,8 @@ public class UserInterface {
 		jobInfoPanel.add(addressLabel);
 		jobInfoPanel.add(contactLabel);
 		jobInfoPanel.add(contactNoLabel);
-		jobInfoPanel.add(assignedEngineers);
-		jobInfoPanel.add(assignedEquipment);
+		jobInfoPanel.add(taskList);
+		jobInfoPanel.add(addTasksButton);
 	}
 	
 	public void setMenuBar() {
