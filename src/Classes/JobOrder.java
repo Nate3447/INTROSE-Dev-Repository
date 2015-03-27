@@ -18,7 +18,6 @@ public class JobOrder {
 	//status = 1 is completed
 	
 	private int assignSchedId;
-	private boolean isValid;
 	private Calendar calendar = Calendar.getInstance();
 	
 	public JobOrder(int jobOrderNo, int referenceNo, String hospital, String address, String contactPerson, int contactNo){
@@ -111,10 +110,6 @@ public class JobOrder {
 
 	public int getAssignSchedId(){
 		return assignSchedId;
-	}
-	
-	public void checkValidity() { 
-			isValid = true;
 	}
 	
 	public boolean isValid() {

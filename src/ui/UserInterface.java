@@ -17,7 +17,7 @@ public class UserInterface {
 	
 	private Database database;
 	
-	public final static String AVAILABILITY_LIST = "View Availability Lists";
+	public final static String UNSCHEDULED_JOBS = "View Unscheduled Jobs";
 	public final static String ENGINEERS = "View Engineers";
 	public final static String JOB_ORDERS = "View Job Orders";
 	public final static String EQUIPMENT = "View Equipment";
@@ -31,7 +31,7 @@ public class UserInterface {
 	public Container pane;
 	public JPanel menuBar;
 	public JPanel listCardsPanel;
-	public JPanel availabilityListPanel;	
+	public JPanel unscheduledJobListPanel;	
 	public JScrollPane viewEngineersPanel;
 	public JScrollPane viewJobOrdersPanel;
 	public JScrollPane viewEquipmentPanel;
@@ -72,16 +72,17 @@ public class UserInterface {
 		pane.setLayout(null);
 		interfaceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
 		setCalendarPanel();
 		setMenuBar();
-		setAvailabilityListPanel();
+		setUnscheduledJobListPanel();
 		setViewEngineersPanel();
 		setViewEquipmentPanel();
 		setViewJobOrdersPanel();
 		setAddEngineerPanel();
 		setAddEquipmentPanel();
 		setAddJobOrderPanel();
+		setJobInfoPanel(new JobOrder());
+		setAddTaskPanel(new JobOrder());
 		setListCardsPanel();
 		
 		pane.add(calendarPanel);
@@ -97,7 +98,7 @@ public class UserInterface {
 		
 		listCardsPanel = new JPanel(new CardLayout());
 		listCardsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
+		listCardsPanel.add(unscheduledJobListPanel, UNSCHEDULED_JOBS);
 		listCardsPanel.add(viewEngineersPanel, ENGINEERS);
 		listCardsPanel.add(addEngineerPanel, ADD_ENGINEER);
 		listCardsPanel.add(viewEquipmentPanel, EQUIPMENT);
@@ -267,7 +268,6 @@ public class UserInterface {
 	
 	public JTextField jobOrderNoInput, referenceNoInput, hospitalInput, addressInput, contactInput,
 		contactNoInput;
-	
 	public JLabel jobStatusLabel;
 	
 	/*-----------------------------------------------------------------------------------
@@ -367,46 +367,94 @@ public class UserInterface {
 		addJobOrderPanel.add(cancelButton);
 	}
 	
-	public JButton addTaskButton, cancelTaskButton;
+	public void setJobSchedulePanel(JobOrder jobOrder) {
+		
+	}
+	
+	public JButton addTaskButton, cancelTaskButton, addTaskEngineerButton, addTaskEquipmentButton;
 	public JTextField taskQuantityInput, taskSerialInput, taskAssetCodeInput, taskLocationInput;
+	public JComboBox serviceTypeInput, availableEngineersInput, availableEquipmentInput;
+	public ArrayList<Equipment> availableEquipment;
 	
 	public void setAddTaskPanel(JobOrder jobOrder) {
-		JLabel itemQuantityLabel = new JLabel();
-		JLabel serviceTypeLabel = new JLabel();
-		JLabel itemTypeLabel = new JLabel();
-		JLabel serialNoLabel = new JLabel();
-		JLabel assetCodeLabel = new JLabel();
-		JLabel locationLabel = new JLabel();
+		JLabel itemQuantityLabel = new JLabel("Item Quantity: ");
+		JLabel serviceTypeLabel = new JLabel("Service Type: ");
+		JLabel itemTypeLabel = new JLabel("Item Type: ");
+		JLabel serialNoLabel = new JLabel("Serial No.: ");
+		JLabel assetCodeLabel = new JLabel("Asset Code: ");
+		JLabel locationLabel = new JLabel("Location: ");
 		taskQuantityInput = new JTextField();
 		String comboBoxItems[] = { "Preventive Maintenance", "Maintenance", "Repair", "Calibration" };
-		JComboBox serviceTypeInput = new JComboBox(comboBoxItems);
-		JComboBox availableEngineersInput = new JComboBox();
-		JComboBox availableEquipmentInput = new JComboBox();
-		
+		serviceTypeInput = new JComboBox(comboBoxItems);
 		taskSerialInput = new JTextField();
 		taskAssetCodeInput = new JTextField();
 		taskLocationInput = new JTextField();
+		ArrayList<Engineer> availableEngineers = database.getAvailableEngineers(database.getJobStartDate(jobOrder));
+		String[] availableEngineerOptions = new String[availableEngineers.size()];
+		for(int i = 0; i < availableEngineers.size(); i++) {
+			availableEngineerOptions[i] = availableEngineers.get(i).getName();
+		}
+		availableEngineersInput = new JComboBox(availableEngineerOptions);
+		availableEquipment = database.getAvailableEquipment(database.getJobStartDate(jobOrder));
+		String[] availableEquipmentOptions = new String[availableEquipment.size()];
+		for(int i = 0; i < availableEngineers.size(); i++) {
+			availableEquipmentOptions[i] = availableEquipment.get(i).getName();
+		}
+		availableEquipmentInput = new JComboBox(availableEquipmentOptions);
+		JList taskAssignedEngineers = new JList();
+		JList taskAssignedEquipment = new JList();
+		addTaskEngineerButton = new JButton("Add Engineer");
+		addTaskEquipmentButton = new JButton("Add Equipment");
 		addTaskButton = new JButton("Add");
 		cancelTaskButton = new JButton("Cancel");
 		addTaskPanel = new JPanel(null);
 		
-		itemQuantityLabel.setBounds(0, 0, 0, 0);
-		serviceTypeLabel.setBounds(0, 0, 0, 0);
-		itemTypeLabel.setBounds(0, 0, 0, 0);
-		serialNoLabel.setBounds(0, 0, 0, 0);
-		assetCodeLabel.setBounds(0, 0, 0, 0);
-		locationLabel.setBounds(0, 0, 0, 0);
-		taskQuantityInput.setBounds(0, 0, 0, 0);
-		serviceTypeInput.setBounds(0, 0, 0, 0);
+		itemQuantityLabel.setBounds(20, 20, 100, 30);
+		serviceTypeLabel.setBounds(20, 50, 100, 30);
+		itemTypeLabel.setBounds(20, 80, 100, 30);
+		serialNoLabel.setBounds(20, 110, 100, 30);
+		assetCodeLabel.setBounds(20, 140, 100, 30);
+		locationLabel.setBounds(20, 170, 100, 30);
+		taskQuantityInput.setBounds(120, 20, 220, 20);
+		serviceTypeInput.setBounds(120, 50, 220, 20);
+		taskSerialInput.setBounds(120, 80, 220, 20);
+		taskAssetCodeInput.setBounds(120, 110, 220, 20);
+		taskLocationInput.setBounds(120, 140, 220, 20);
 		availableEngineersInput.setBounds(0, 0, 0, 0);
 		availableEquipmentInput.setBounds(0, 0, 0, 0);
-		
-		taskSerialInput.setBounds(0, 0, 0, 0);
-		taskAssetCodeInput.setBounds(0, 0, 0, 0);
-		taskLocationInput.setBounds(0, 0, 0, 0);
-		addTaskButton.setBounds(0, 0, 0, 0);
-		cancelTaskButton.setBounds(0, 0, 0, 0);
-		addTaskPanel.setBounds(0, 0, 0, 0);
+		taskAssignedEngineers.setBounds(0, 0, 0, 0);
+		taskAssignedEquipment.setBounds(0, 0, 0, 0);
+		addTaskEngineerButton.setBounds(0, 0, 0, 0);
+		addTaskEngineerButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				database.engineerToTask(availableEngineersInput.getSelectedItem().toString(), Integer.parseInt(serialNoInput.getText()));
+				CardLayout c = (CardLayout)(listCardsPanel.getLayout());
+				c.show(listCardsPanel, ADD_TASK);
+			}
+		});
+		addTaskEquipmentButton.setBounds(0, 0, 0, 0);
+		addTaskEquipmentButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				database.equipmentToTask(availableEquipment.get(availableEquipmentInput.getSelectedIndex()).getSerialNo(), Integer.parseInt(serialNoInput.getText()));
+			}
+		});
+		addTaskButton.setBounds(100, 0, 0, 0);
+		addTaskButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		cancelTaskButton.setBounds(200, 0, 0, 0);
+		cancelTaskButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		addTaskPanel.setBounds(640, 40, 360, 710);
 		
 		addTaskPanel.add(itemQuantityLabel);
 		addTaskPanel.add(serviceTypeLabel);
@@ -418,15 +466,20 @@ public class UserInterface {
 		addTaskPanel.add(serviceTypeInput);
 		addTaskPanel.add(availableEngineersInput);
 		addTaskPanel.add(availableEquipmentInput);
-		
+		addTaskPanel.add(taskAssignedEngineers);
+		addTaskPanel.add(taskAssignedEquipment);
 		addTaskPanel.add(taskSerialInput);
 		addTaskPanel.add(taskAssetCodeInput);
 		addTaskPanel.add(taskLocationInput);
+		addTaskPanel.add(addTaskEngineerButton);
+		addTaskPanel.add(addTaskEquipmentButton);
 		addTaskPanel.add(addTaskButton);
 		addTaskPanel.add(cancelTaskButton);
 	}
 	
 	public JButton addTasksButton;
+	public JComboBox jobMonthBox, jobDayBox;
+	public JTextField jobYearInput;
 	
 	public void setJobInfoPanel(JobOrder jobOrder) {
 		
@@ -437,8 +490,18 @@ public class UserInterface {
 		JLabel contactLabel = new JLabel("Contact Person: " + jobOrder.getContactPerson());
 		JLabel contactNoLabel = new JLabel("Contact No.: " + jobOrder.getContactNo());
 		JList taskList = new JList();
-		jobInfoPanel = new JPanel(null);
+		JScrollPane taskViewer = new JScrollPane(taskList);
 		addTasksButton = new JButton("Add Tasks");
+		JLabel jobScheduleLabel = new JLabel("Job Schedule (mm/dd/yyyy): ");
+		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		String[] days = new String[31];
+		for(int i=1; i<=31; i++) {
+			days[i-1] = String.valueOf(i);
+		}
+		jobMonthBox = new JComboBox(months);
+		jobDayBox = new JComboBox(days);
+		jobYearInput = new JTextField();
+		jobInfoPanel = new JPanel(null);
 		
 		jobOrderNoLabel.setBounds(20, 20, 300, 30);
 		referenceNoLabel.setBounds(20, 50, 300, 30);
@@ -446,8 +509,13 @@ public class UserInterface {
 		addressLabel.setBounds(30, 110, 300, 30);
 		contactLabel.setBounds(30, 140, 300, 30);
 		contactNoLabel.setBounds(30, 170, 300, 30);
-		taskList.setBounds(0, 0, 0, 0);
+		jobScheduleLabel.setBounds(30, 200, 300, 30);
+		jobMonthBox.setBounds(30, 230, 40, 30);
+		jobDayBox.setBounds(30, 230, 40, 30);
+		jobYearInput.setBounds(30, 230, 80, 30);
+		taskViewer.setBounds(0, 0, 0, 0);
 		addTasksButton.setBounds(0, 0, 0, 0);
+		
 		jobInfoPanel.setBounds(640, 40, 360, 710);
 		
 		jobInfoPanel.add(jobOrderNoLabel);
@@ -469,14 +537,14 @@ public class UserInterface {
 		menuLabel = new JLabel("Menu: ");
 		menuLabel.setBounds(10, 10, 40, 20);
 		menuLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		String[] comboBoxItems = { AVAILABILITY_LIST, ENGINEERS, ADD_ENGINEER, EQUIPMENT, ADD_EQUIPMENT, JOB_ORDERS, ADD_JOB };
+		String[] comboBoxItems = { UNSCHEDULED_JOBS, ENGINEERS, ADD_ENGINEER, EQUIPMENT, ADD_EQUIPMENT, JOB_ORDERS, ADD_JOB };
 		menuDropDown = new JComboBox(comboBoxItems);
 		menuDropDown.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				switch((String)e.getItem()) {
-					case AVAILABILITY_LIST: setAvailabilityListPanel(); 
-						listCardsPanel.remove(availabilityListPanel);
-						listCardsPanel.add(availabilityListPanel, AVAILABILITY_LIST);
+					case UNSCHEDULED_JOBS: setUnscheduledJobListPanel(); 
+						listCardsPanel.remove(unscheduledJobListPanel);
+						listCardsPanel.add(unscheduledJobListPanel, UNSCHEDULED_JOBS);
 						break;
 					case ENGINEERS: setViewEngineersPanel(); 
 						listCardsPanel.remove(viewEngineersPanel);
@@ -513,109 +581,27 @@ public class UserInterface {
 		menuBar.add(menuDropDown);
 	}
 	
-	// AVAILABILITY LISTS PANEL COMPONENTS
+	// UNSCHEDULED JOB LIST COMPONENTS
 
-	public JScrollPane unscheduledJobScroller, availableEngineerScroller, availableEquipmentScroller;
-	public JButton unscheduledJobsButton, availableEngineersButton, availableEquipmentButton;
-
-	public void setAvailabilityListPanel() {
+	public JScrollPane unscheduledJobScroller;
+	public void setUnscheduledJobListPanel() {
 		
-		JList unscheduledJobList, availableEngineerList, availableEquipmentList;
+		JList unscheduledJobList;
 		
-		availabilityListPanel = new JPanel(null);
-		
-		unscheduledJobList = new JList(database.getUnscheduledJobs().toArray());
+		unscheduledJobListPanel = new JPanel(null);
+		try {
+			unscheduledJobList = new JList(database.getUnscheduledJobs().toArray());
+		} catch(NullPointerException e) {
+			unscheduledJobList = new JList();
+		}
 		unscheduledJobList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		unscheduledJobScroller = new JScrollPane(unscheduledJobList);
-		unscheduledJobScroller.setVisible(false);
-		/*availableEngineerList = new JList(database.getAvailableEngineers().toArray());
-		availableEngineerList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		availableEngineerScroller = new JScrollPane(availableEngineerList);
-		availableEngineerScroller.setVisible(false);
-		availableEquipmentList = new JList(database.getAvailableEquipment().toArray());
-		availableEquipmentList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		availableEquipmentScroller = new JScrollPane(availableEquipmentList);
-		availableEquipmentScroller.setVisible(false);*/
 		
-		unscheduledJobsButton = new JButton("Unscheduled Jobs");
-		availableEngineersButton = new JButton("Available Engineers");
-		availableEquipmentButton = new JButton("Available Equipment");
+		unscheduledJobScroller.setBounds(640, 40, 360, 710);
 		
+		unscheduledJobListPanel.setBounds(640, 40, 360, 710);
 		
-		unscheduledJobsButton.setBounds(5, 5, 350, 30);
-		/*availableEngineersButton.setBounds(5, 35, 350, 30);
-		availableEquipmentButton.setBounds(5, 65, 350, 30);*/
-		
-		unscheduledJobsButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(unscheduledJobScroller.isVisible()) {
-					unscheduledJobScroller.setVisible(false);
-					availableEngineersButton.setLocation(5, 35);
-					availableEquipmentButton.setLocation(5, 65);
-				} else {
-					unscheduledJobScroller.setVisible(true);
-					availableEngineersButton.setLocation(5, 645);
-					availableEquipmentButton.setLocation(5, 675);
-					if (availableEngineerScroller.isVisible()) {
-						availableEngineerScroller.setVisible(false);
-					}
-					if (availableEquipmentScroller.isVisible()) {
-						availableEquipmentScroller.setVisible(false);
-					}
-				}
-			}
-		});
-		/*availableEngineersButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(availableEngineerScroller.isVisible()) {
-					availableEngineerScroller.setVisible(false);
-					availableEquipmentButton.setLocation(5, 65);
-				} else {
-					availableEngineerScroller.setVisible(true);
-					availableEngineersButton.setLocation(5, 35);
-					availableEquipmentButton.setLocation(5, 675);
-					if (unscheduledJobScroller.isVisible()) {
-						unscheduledJobScroller.setVisible(false);
-					}
-					if (availableEquipmentScroller.isVisible()) {
-						availableEquipmentScroller.setVisible(false);
-					}
-				}
-			}
-		});
-		availableEquipmentButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(availableEquipmentScroller.isVisible()) {
-					availableEquipmentScroller.setVisible(false);
-				} else {
-					availableEquipmentScroller.setVisible(true);
-					availableEngineersButton.setLocation(5, 35);
-					availableEquipmentButton.setLocation(5, 65);
-					if (unscheduledJobScroller.isVisible()) {
-						unscheduledJobScroller.setVisible(false);
-					}
-					if (availableEngineerScroller.isVisible()) {
-						availableEngineerScroller.setVisible(false);
-					}
-				}
-			}
-		});*/
-
-		unscheduledJobScroller.setBounds(5, 35, 350, 610);
-		/*availableEngineerScroller.setBounds(5, 65, 350, 610);
-		availableEquipmentScroller.setBounds(5, 95, 350, 610);*/
-		
-		availabilityListPanel.setBounds(640, 40, 360, 710);
-		
-		availabilityListPanel.add(unscheduledJobsButton);
-		availabilityListPanel.add(unscheduledJobScroller);
-		/*availabilityListPanel.add(availableEngineersButton);
-		availabilityListPanel.add(availableEngineerScroller);
-		availabilityListPanel.add(availableEquipmentButton);
-		availabilityListPanel.add(availableEquipmentScroller);*/
+		unscheduledJobListPanel.add(unscheduledJobScroller);
 		
 	}
 	
@@ -623,8 +609,8 @@ public class UserInterface {
 	
 	public void setViewEngineersPanel() {
 		JPanel listPanel = new JPanel(new GridLayout(0, 1));
-		database.getEngineerList();
-		ArrayList<Engineer> engineers = getEngineers();
+		ArrayList<Engineer> engineers;
+		engineers = database.getEngineerList();
 		EngineerPanel engineerPanel = new EngineerPanel();
 		int i;
 
@@ -636,18 +622,11 @@ public class UserInterface {
 		viewEngineersPanel.setBounds(640, 40, 360, 710);
 	}
 	
-	public ArrayList<Engineer> getEngineers() {
-		ArrayList<Engineer> engineers;
-		engineers = database.getEngineerList();
-		return engineers;
-	}
-	
 	// VIEW EQUIPMENT PANEL METHODS
 	
 	public void setViewEquipmentPanel() {
 		JPanel listPanel = new JPanel(new GridLayout(0, 1));
-		database.getEquipmentList();
-		ArrayList<Equipment> equipment = getEquipment();
+		ArrayList<Equipment> equipment = database.getEquipmentList();
 		EquipmentPanel equipmentPanel = new EquipmentPanel();
 		int i;
 
@@ -659,18 +638,11 @@ public class UserInterface {
 		viewEquipmentPanel.setBounds(640, 40, 360, 710);
 	}
 	
-	public ArrayList<Equipment> getEquipment() {
-		ArrayList<Equipment> equipment;
-		equipment = database.getEquipmentList();
-		return equipment;
-	}
-	
 	// JOB ORDERS PANEL METHODS
 	
 	public void setViewJobOrdersPanel() {
 		JPanel listPanel = new JPanel(new GridLayout(0, 1));
-		database.getJobOrderList();
-		ArrayList<JobOrder> jobOrders = getJobOrders();
+		ArrayList<JobOrder> jobOrders = database.getJobOrderList();
 		JobOrderPanel jobOrderPanel = new JobOrderPanel();
 		int i;
 
@@ -682,12 +654,6 @@ public class UserInterface {
 		
 		viewJobOrdersPanel = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		viewJobOrdersPanel.setBounds(640, 40, 360, 710);
-	}
-	
-	public ArrayList<JobOrder> getJobOrders() {
-		ArrayList<JobOrder> jobOrders;
-		jobOrders = database.getJobOrderList();
-		return jobOrders;
 	}
 	
 	// CALENDAR PANEL METHODS

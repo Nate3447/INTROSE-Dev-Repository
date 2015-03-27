@@ -86,7 +86,6 @@ public class Database {
             preparedStatement.setInt(6,jobOrder.getContactNo());
             preparedStatement.executeUpdate();
             closeAll();
-            System.out.println("hahahahahaha");
         } catch(SQLException e){
             e.printStackTrace();
         }
@@ -113,6 +112,7 @@ public class Database {
             preparedStatement.setString(5,task.getAssetCode());
             preparedStatement.setString(6,task.getLocation());
             preparedStatement.setInt(7,jobOrderId);
+            preparedStatement.executeUpdate();
             closeAll();
         } catch(SQLException e){
             e.printStackTrace();
@@ -124,9 +124,10 @@ public class Database {
 	 -----------------------------------------------------------------------------------*/
 	
 	/*Assign Schedule to Job Order
-	Parameters: start date, end date, and job order ID*/
-	public void schedToJobOrder(Date start, Date end, int jobOrderId){
+	Parameters: start date, end date, and job order Number*/
+	public void schedToJobOrder(Date start, Date end, int jobOrderNo){
 		int AssignSchedId = 0;
+		String checkIfAvailable = "";
 		Date startCheck;
 		Date endCheck;
         Date cStart = convert(start);
@@ -137,38 +138,24 @@ public class Database {
             connection = connectionFactory.getConnection();
             preparedStatement = connection.prepareStatement("select assignSchedId from AssignSched where startDate = "+ cStart + " AND endDate = "+ cEnd);
 			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-			    if (resultSet.wasNull()) {
-			        // if the schedule does not exist, it adds it to the DB
-		            preparedStatement = connection.prepareStatement("INSERT INTO AssignSched(startDate, endDate)"
-		                    + "values(?,?)");
-		            preparedStatement.setDate(1,cStart);
-		            preparedStatement.setDate(2,cEnd);
-		            // when table is created, it gets its assginSchedId
-		            AssignSchedId = resultSet.getInt("assignSchedId");
-			    }
-			    else{ // if the schedule exists, it takes the assignSchedId to add it to jobOrder, engineers, and equipments foreign keys
-			    	AssignSchedId = resultSet.getInt("assignSchedId");
-			    }
+			checkIfAvailable = String.valueOf(resultSet.next());
+			// if the schedule does not exist, it adds it to the DB
+			if (checkIfAvailable.equals("false")) {
+	            preparedStatement = connection.prepareStatement("INSERT INTO AssignSched(startDate, endDate)"
+	                    + "values(?,?)");
+	            preparedStatement.setDate(1,cStart);
+	            preparedStatement.setDate(2,cEnd);
+	            preparedStatement.executeUpdate();
 			}
-            //gets all the engineers inside jobOrder and assign the schedule
-            preparedStatement = connection.prepareStatement("select distinct e.engineerId, e.assignSchedId from task t"
-            											+" inner join engAssign ea on ea.taskId = t.taskId"
-            											+" inner join engineer e on e.engineerId = ea.engineerId"
-            											+" where t.jobOrderId = " + jobOrderId);
-            resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-	            preparedStatement = connection.prepareStatement("UPDATE engineer SET assignSchedId = "+ AssignSchedId+" WHERE engineerId = "+ resultSet.getInt("engineerId"));
-            }
-            //gets all equipments that are assigned to a tasks and are assigned to a jobOrder
-            preparedStatement = connection.prepareStatement("select distinct e.equipmentId, e.assignSchedId from task t"
-														+" inner join borrowEquip b on b.taskId = t.taskId"
-														+" inner join equipment e on e.equipmentId = b.equipmentId"
-														+" where t.jobOrderId = " + jobOrderId);
+			// gets the assignSchedId of the schedule and puts it in a variable 
+			preparedStatement = connection.prepareStatement("select assignSchedId from AssignSched where startDate = "+ cStart + " AND endDate = "+ cEnd);
 			resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()){
-			preparedStatement = connection.prepareStatement("UPDATE equipment SET assignSchedId = "+AssignSchedId+" WHERE equipment = "+ resultSet.getInt("equipmentId"));
+			if(resultSet.next()){
+				AssignSchedId = resultSet.getInt("assignSchedId");
 			}
+			// once the assignSchedId is retrieved, it adds the job order an assigned schedule
+            preparedStatement = connection.prepareStatement("UPDATE jobOrder SET assignSchedId = " + AssignSchedId + "WHERE jobOrderNo = " + jobOrderNo);
+            preparedStatement.executeUpdate();
             closeAll();
         } catch(SQLException e){
         	e.printStackTrace();
@@ -180,23 +167,47 @@ public class Database {
 	public void engineerToTask(String name, int serialNo){
 		int engId = 0;
 		int taskId = 0;
+		int assignSchedId = 0;
 		try {
             ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
             connection = connectionFactory.getConnection();
+            //first get the engineerId of the engineer based on the name
             preparedStatement = connection.prepareStatement("select engineerId from engineer where name = '" + name + "'");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
+            	//store the ID into variable engId
             	engId = resultSet.getInt("engineerId");
             }
+            //then get the taskId of the task based on its serialNo
             preparedStatement = connection.prepareStatement("select taskId from task where serialNo = " + serialNo);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
+            	//store the ID into variable taskId
             	taskId = resultSet.getInt("taskId");
             }
+            //and insert the engId and taskId to engAssign of the database
             preparedStatement = connection.prepareStatement("INSERT INTO EngAssign(engineerId, taskId)"
                     + "values(?,?)");
             preparedStatement.setInt(1,engId);
             preparedStatement.setInt(2,taskId);
+            preparedStatement.executeUpdate();
+            
+            //assigning schedule to the engineer
+            //get the assignSchedId of jobOrder based on task's serialNo
+            preparedStatement = connection.prepareStatement("select jo.assignSchedId from jobOrder jo"
+            		+ "inner join task ta on ta.jobOrderId = jo.jobOrderId"
+            		+ "where ta.serialNo = " + serialNo);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+            	//store the ID into variable assignSchedId
+            	assignSchedId = resultSet.getInt("assignSchedId");
+            }
+            //insert the schedule to engSched
+            preparedStatement = connection.prepareStatement("INSERT INTO EngSched(assignSchedId, engineerId)"
+                    + "values(?,?)");
+            preparedStatement.setInt(1,assignSchedId);
+            preparedStatement.setInt(2,engId);
+            preparedStatement.executeUpdate();
             closeAll();
         } catch(SQLException e){
         	e.printStackTrace();
@@ -208,6 +219,7 @@ public class Database {
 	public void equipmentToTask(int eSerialNo, int tSerialNo){
 		int equipmentId = 0;
 		int taskId = 0;
+		int assignSchedId = 0;
 		try {
             ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
             connection = connectionFactory.getConnection();
@@ -225,6 +237,24 @@ public class Database {
                     + "values(?,?)");
             preparedStatement.setInt(1,taskId);
             preparedStatement.setInt(2,equipmentId);
+            preparedStatement.executeUpdate();
+            
+            //assigning schedule to the equipment
+            //get the assignSchedId of jobOrder based on task's serialNo
+            preparedStatement = connection.prepareStatement("select jo.assignSchedId from jobOrder jo"
+            		+ "inner join task ta on ta.jobOrderId = jo.jobOrderId"
+            		+ "where ta.serialNo = " + tSerialNo);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+            	//store the ID into variable assignSchedId
+            	assignSchedId = resultSet.getInt("assignSchedId");
+            }
+            //insert the schedule to EquipSched
+            preparedStatement = connection.prepareStatement("INSERT INTO EquipSched(assignSchedId, equipmentId)"
+                    + "values(?,?)");
+            preparedStatement.setInt(1,assignSchedId);
+            preparedStatement.setInt(2,equipmentId);
+            preparedStatement.executeUpdate();
             closeAll();
         } catch(SQLException e){
         	e.printStackTrace();
@@ -374,6 +404,7 @@ public class Database {
 		ArrayList<Engineer> availableEngineerList = new ArrayList<Engineer>();
 		return availableEngineerList;
 	}
+	
 	//Get available equipment depending on the date given
 	public ArrayList<Equipment> getAvailableEquipment() {
 		ArrayList<Equipment> availableEquipmentList = new ArrayList<Equipment>();

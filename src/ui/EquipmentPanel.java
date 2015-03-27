@@ -30,7 +30,7 @@ public class EquipmentPanel extends JPanel {
 		nameLabel = new JLabel("Equipment: " + equipment.getName());
 		if(equipment.getType() == 1){
 			type = "formula";
-		}else{
+		} else {
 			type = "type";
 		}
 		typeLabel = new JLabel("Type: " + type);
